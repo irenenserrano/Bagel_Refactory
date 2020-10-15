@@ -7,13 +7,20 @@ package edu.mills.cs180a;
  *
  */
 public class Bag {
+    private static final double DAY_OLD_BAGEL_PRICE = .35;
+
+    private static final double GOURMET_BAGEL_PRICE = .7;
+
+    private static final double OLD_FASHIONED_BAGEL_PRICE = .5;
+
+    // We provide a Baker's Dozen: 13 bagels for the price of 12.
     private static final int BUY_ONE_GET_ONE_FREE_QUANTITY = 13;
-    private static final int HALF_DOZEN = 6;
-    private static final int DOZEN = 13;
-    private static final double DISCOUNT_PERCENT = .95;
-    private static final double DISCOUNTED_PRICE = .35;
-    private static final double GOURMET_PRICE = .7;
-    private static final double OLD_FASHIONED_PRICE = .5;
+
+    // If the Baker's Dozen discount doesn't apply, we give a percentage discount.
+    private static final int BULK_DISCOUNT_MINIMUM = 6;
+    private static final double BULK_DISCOUNT_PERCENTAGE = .05;
+    private static final double BULK_DISCOUNT_MULTIPLIER = 1 - BULK_DISCOUNT_PERCENTAGE;
+
     private final Bagel bagel;
     private final int quantity;
 
@@ -53,25 +60,14 @@ public class Bag {
      * @return the total price
      */
     public double getTotalPrice() {
-        double itemPrice;
-        if (bagel.getCategory().equals("old-fashioned")) {
-            itemPrice = OLD_FASHIONED_PRICE; // 50 cents
-        } else if (bagel.getCategory().equals("gourmet")) {
-            itemPrice = GOURMET_PRICE; // 70 cents
-        } else if (bagel.getCategory().equals("discounted")) {
-            itemPrice = DISCOUNTED_PRICE; // 35 cents
-        } else {
-            throw new IllegalArgumentException("Illegal category: " + bagel.getCategory());
-        }
-        double totalPrice;
+        double undiscountedPrice = quantity * getPerBagelPrice();
         if (quantity == BUY_ONE_GET_ONE_FREE_QUANTITY) {
-            totalPrice = itemPrice * DOZEN; // Baker's dozen
-        } else if (quantity >= HALF_DOZEN) {
-            totalPrice = itemPrice * quantity * DISCOUNT_PERCENT; // 5% discount
-        } else {
-            totalPrice = itemPrice * quantity;
+            return undiscountedPrice - getPerBagelPrice();
         }
-        return totalPrice;
+        if (quantity >= BULK_DISCOUNT_MINIMUM) {
+            return undiscountedPrice * BULK_DISCOUNT_MULTIPLIER;
+        }
+        return undiscountedPrice;
     }
 
     /**
@@ -81,11 +77,11 @@ public class Bag {
      */
     public double getPerBagelPrice() {
         if (bagel.getCategory().equals("old-fashioned")) {
-            return OLD_FASHIONED_PRICE;
+            return OLD_FASHIONED_BAGEL_PRICE;
         } else if (bagel.getCategory().equals("gourmet")) {
-            return GOURMET_PRICE;
-        } else if (bagel.getCategory().equals("discounted")) {
-            return DISCOUNTED_PRICE;
+            return GOURMET_BAGEL_PRICE;
+        } else if (bagel.getCategory().equals("day-old")) {
+            return DAY_OLD_BAGEL_PRICE;
         } else {
             throw new IllegalArgumentException("Illegal category");
         }

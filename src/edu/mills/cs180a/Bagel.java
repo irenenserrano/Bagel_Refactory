@@ -17,6 +17,7 @@ public class Bagel {
     private final String type;
     private String category;
 
+
     /**
      * Constructs a bagel of the given type.
      *

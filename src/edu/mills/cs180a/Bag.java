@@ -7,6 +7,13 @@ package edu.mills.cs180a;
  *
  */
 public class Bag {
+    private static final int BUY_ONE_GET_ONE_FREE_QUANTITY = 13;
+    private static final int HALF_DOZEN = 6;
+    private static final int DOZEN = 13;
+    private static final double DISCOUNT_PERCENT = .95;
+    private static final double DISCOUNTED_PRICE = .35;
+    private static final double GOURMET_PRICE = .7;
+    private static final double OLD_FASHIONED_PRICE = .5;
     private final Bagel bagel;
     private final int quantity;
 
@@ -48,33 +55,37 @@ public class Bag {
     public double getTotalPrice() {
         double itemPrice;
         if (bagel.getCategory().equals("old-fashioned")) {
-            itemPrice = .5; // 50 cents
+            itemPrice = OLD_FASHIONED_PRICE; // 50 cents
         } else if (bagel.getCategory().equals("gourmet")) {
-            itemPrice = .7; // 70 cents
+            itemPrice = GOURMET_PRICE; // 70 cents
         } else if (bagel.getCategory().equals("discounted")) {
-            itemPrice = .35; // 35 cents
+            itemPrice = DISCOUNTED_PRICE; // 35 cents
         } else {
             throw new IllegalArgumentException("Illegal category: " + bagel.getCategory());
         }
         double totalPrice;
-        if (quantity == 13) {
-            totalPrice = itemPrice * 12; // Baker's dozen
-        } else if (quantity >= 6) {
-            totalPrice = itemPrice * quantity * .95; // 5% discount
+        if (quantity == BUY_ONE_GET_ONE_FREE_QUANTITY) {
+            totalPrice = itemPrice * DOZEN; // Baker's dozen
+        } else if (quantity >= HALF_DOZEN) {
+            totalPrice = itemPrice * quantity * DISCOUNT_PERCENT; // 5% discount
         } else {
             totalPrice = itemPrice * quantity;
         }
         return totalPrice;
     }
 
-    // for student to write
+    /**
+     * Returns the price associated with the bagel type.
+     *
+     * @return price based on bagel type
+     */
     public double getPerBagelPrice() {
         if (bagel.getCategory().equals("old-fashioned")) {
-            return .5;
+            return OLD_FASHIONED_PRICE;
         } else if (bagel.getCategory().equals("gourmet")) {
-            return .7;
+            return GOURMET_PRICE;
         } else if (bagel.getCategory().equals("discounted")) {
-            return .35;
+            return DISCOUNTED_PRICE;
         } else {
             throw new IllegalArgumentException("Illegal category");
         }

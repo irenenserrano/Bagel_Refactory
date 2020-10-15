@@ -51,7 +51,11 @@ public class Order {
         return price;
     }
 
-    // student writes javadoc, which should not be too specific
+    /**
+     * Generates a printed receipt containing the contents, discounts, and total final price
+     *
+     * @return s Generated receipt of order
+     */
     public String generateReceipt() {
         String s = "";
         double total = 0;

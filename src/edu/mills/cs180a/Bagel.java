@@ -1,63 +1,88 @@
 package edu.mills.cs180a;
 
-import java.util.List;
-
 /**
- * A type of bagel. There should be only one instance of this class for any
- * bagel type (e.g., "sesame seed").
+ * A type of bagel. There should be only one instance of this class for any bagel type (e.g.,
+ * "sesame seed").
  *
  * @author Ellen Spertus
  */
 public class Bagel {
-	private static List<String> OLD_FASHIONED_TYPES = List.of("plain", "poppy seed", "sesame seed", "onion",
-			"everything");
-	private static List<String> GOURMET_TYPES = List.of("asiago", "blueberry", "cinnamon raisin", "sun-dried tomato");
-	public static List<String> CATEGORIES = List.of("old-fashioned", "gourmet", "day-old");
-	private final String type;
-	private String category;
+    private final Type type;
+    private Category currentCategory;
 
-	/**
-	 * Constructs a bagel of the given type.
-	 *
-	 * @param type one of "plain", "poppy seed", "sesame seed", "onion",
-	 *             "everything", "asiago", "blueberry", "raisin", or "sun-dried
-	 *             tomato"
-	 * @throws IllegalArgumentException if the type is not legal
-	 */
-	public Bagel(String type) {
-		if (OLD_FASHIONED_TYPES.contains(type)) {
-			category = "old-fashioned";
-		} else if (GOURMET_TYPES.contains(type)) {
-			category = "gourmet";
-		} else {
-			throw new IllegalArgumentException("Illegal bagel type: " + type);
-		}
-		this.type = type;
-	}
+    enum Type {
+        PLAIN("plain", Category.OLD_FASHIONED), POPPY_SEED("poppy seed",
+                Category.OLD_FASHIONED), SESAME_SEED("sesame seed", Category.OLD_FASHIONED), ONION(
+                        "onion",Category.OLD_FASHIONED), EVERYTHING("everthing",
+                                Category.OLD_FASHIONED), ASIAGO("asiago",
+                                        Category.GOURMET), BLUEBERRY("blueberry",
+                                                Category.GOURMET), CINNAMON_RAISIN(
+                                                        "cinnamon raisin",
+                                                        Category.GOURMET), SUN_DRIED_TOMATO(
+                                                                "sun dried tomato",
+                                                                Category.GOURMET);
 
-	/**
-	 * Gets the type of the bagel.
-	 *
-	 * @return the type of bagel
-	 */
-	public String getType() {
-		return type;
-	}
+        private final String name;
+        private final Category category;
 
-	/**
-	 * Gets the category of the bagel. This is "old-fashioned", "gourmet", or
-	 * "discounted".
-	 *
-	 * @return the category
-	 */
-	public String getCategory() {
-		return category;
-	}
+        private Type(String name, Category category) {
+            this.name = name;
+            this.category = category;
+        }
 
-	/**
-	 * Marks down this bagel.
-	 */
-	public void markDown() {
-		category = "day-old";
-	}
+        @Override
+        public String toString() {
+            return name;
+        }
+
+    }
+
+    enum Category {
+        OLD_FASHIONED(.5), GOURMET(.7), DAY_OLD(.35);
+
+        private final double price;
+
+        private Category(double price) {
+            this.price = price;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+    }
+
+    /**
+     * Constructs a bagel of the given type.
+     *
+     * @param the type
+     */
+    public Bagel(Type type) {
+        this.type = type;
+        this.currentCategory = type.category;
+    }
+
+    /**
+     * Gets the type of the bagel.
+     *
+     * @return the type of bagel
+     */
+    public Type getType() {
+        return type;
+    }
+
+    /**
+     * Gets the category of the bagel.
+     *
+     * @return the category
+     */
+    public Category getCategory() {
+        return currentCategory;
+    }
+
+    /**
+     * Marks down this bagel.
+     */
+    public void markDown() {
+        currentCategory = Category.DAY_OLD;
+    }
 }

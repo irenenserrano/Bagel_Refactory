@@ -7,12 +7,6 @@ package edu.mills.cs180a;
  *
  */
 public class Bag {
-    private static final double DAY_OLD_BAGEL_PRICE = .35;
-
-    private static final double GOURMET_BAGEL_PRICE = .7;
-
-    private static final double OLD_FASHIONED_BAGEL_PRICE = .5;
-
     // We provide a Baker's Dozen: 13 bagels for the price of 12.
     private static final int BUY_ONE_GET_ONE_FREE_QUANTITY = 13;
 
@@ -76,14 +70,10 @@ public class Bag {
      * @return price based on bagel type
      */
     public double getPerBagelPrice() {
-        if (bagel.getCategory().equals("old-fashioned")) {
-            return OLD_FASHIONED_BAGEL_PRICE;
-        } else if (bagel.getCategory().equals("gourmet")) {
-            return GOURMET_BAGEL_PRICE;
-        } else if (bagel.getCategory().equals("day-old")) {
-            return DAY_OLD_BAGEL_PRICE;
-        } else {
-            throw new IllegalArgumentException("Illegal category");
-        }
+        return bagel.getCategory().getPrice();
+
+        //or you could do
+        //Category category = bagel.getCategory();
+        //return category.getPrice();
     }
 }

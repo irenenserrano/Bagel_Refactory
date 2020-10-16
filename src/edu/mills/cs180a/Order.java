@@ -41,8 +41,11 @@ public class Order {
     }
 
     // TODO: Write more constructors for more numbers of bags.
-
-    // student writes javadoc
+    /**
+     * Generates the total price of a single order based on the contents of each bag
+     *
+     * @return price
+     */
     public double getPrice() {
         double price = 0;
         for (Bag bag : bags) {

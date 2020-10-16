@@ -42,7 +42,11 @@ public class Order {
 
     // TODO: Write more constructors for more numbers of bags.
 
-    // student writes javadoc
+    /**
+     * Returns the total price of a given order
+     *
+     * @return price
+     */
     public double getPrice() {
         double price = 0;
         for (Bag bag : bags) {
@@ -51,7 +55,11 @@ public class Order {
         return price;
     }
 
-    // student writes javadoc, which should not be too specific
+    /**
+     * Returns a printed receipt of a given order
+     *
+     * @return Recipet statement
+     */
     public String generateReceipt() {
         String s = "";
         double total = 0;

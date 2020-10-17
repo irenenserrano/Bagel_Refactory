@@ -1,5 +1,6 @@
 package edu.mills.cs180a;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,7 +41,15 @@ public class Order {
         bags = List.of(bag1, bag2, bag3);
     }
 
-    // TODO: Write more constructors for more numbers of bags.
+    /**
+     * Constructs an order with the specifies bags
+     *
+     * @param bags
+     */
+    public Order(Bag...bags) {
+        this.bags = Arrays.asList(bags);
+    }
+
     /**
      * Generates the total price of a single order based on the contents of each bag
      *

@@ -1,7 +1,9 @@
 package edu.mills.cs180a;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -10,6 +12,7 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 import edu.mills.cs180a.Bagel.Type;
 
 class BagTest {
+    private static Bag bag;
 
     @ParameterizedTest
     @ArgumentsSource(BagArgumentsProvider_getTotalPrice.class)
@@ -23,6 +26,28 @@ class BagTest {
         assertEquals(price, bag.getPerBagelPrice());
     }
 
+    @ParameterizedTest
+    void getPerBagelPrice_assertEquals_DayOldBagel()
+    {
+        Bagel old = new Bagel(Type.ASIAGO);
+        assertEquals(.35, old.markDown());
+    }
+
+    @BeforeAll
+    static void setup() {
+        bag = new Bag(new Bagel(Type.SESAME_SEED), 3);
+    }
+
+    void equals_True_SameCategorySamePrice() {
+        Bag test = new Bag(new Bagel(Type.SUN_DRIED_TOMATO),3);
+        assertEquals(bag, test);
+        assertEquals(test,bag);
+    }
+
+    void equals_False_DiffCategoryDiffPrice() {
+        Bag test = new Bag(new Bagel(Type.POPPY_SEED),3);
+        assertNotEquals(bag,test);
+    }
 }// end BagTest class
 
 

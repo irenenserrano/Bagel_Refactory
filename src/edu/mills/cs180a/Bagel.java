@@ -1,8 +1,7 @@
 package edu.mills.cs180a;
 
 /**
- * A type of bagel. There should be only one instance of this class for any bagel type (e.g.,
- * "sesame seed").
+ * A type of bagel.
  *
  * @author Ellen Spertus
  */
@@ -82,7 +81,7 @@ public class Bagel {
     /**
      * Marks down this bagel.
      */
-    public void markDown() {
-        currentCategory = Category.DAY_OLD;
+    public Category markDown() {
+        return currentCategory = Category.DAY_OLD;
     }
 }

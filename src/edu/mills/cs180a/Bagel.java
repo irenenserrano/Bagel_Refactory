@@ -81,7 +81,7 @@ public class Bagel {
     /**
      * Marks down this bagel.
      */
-    public Category markDown() {
-        return currentCategory = Category.DAY_OLD;
+    public void markDown() {
+        currentCategory = Category.DAY_OLD;
     }
 }

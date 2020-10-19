@@ -12,11 +12,22 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 import edu.mills.cs180a.Bagel.Type;
 
 class BagTest {
-    private static Bag bag;
-
+    // testing under bulk minimum for each category
     @ParameterizedTest
     @ArgumentsSource(BagArgumentsProvider_getTotalPrice.class)
-    void getTotalPrice_assertEquals_CorrectPricePerBag(double price, Bag bag) {
+    void getTotalPrice_assertEquals_3BagelsEach(double price, Bag bag) {
+        assertEquals(price, bag.getTotalPrice());
+    }
+
+    //testing bulk minimum for each category
+    @ParameterizedTest
+    @ArgumentsSource(BagArgumentsProvider_getTotalPrice.class)
+    void getTotalPrice_assertEquals_3OldFashionedBagels(double price, Bag bag) {
+        assertEquals(price, bag.getTotalPrice());
+    }
+    @ParameterizedTest
+    @ArgumentsSource(BagArgumentsProvider_getTotalPrice.class)
+    void getTotalPrice_assertEquals_3DayOldBagels(double price, Bag bag) {
         assertEquals(price, bag.getTotalPrice());
     }
 
@@ -30,9 +41,11 @@ class BagTest {
     void getPerBagelPrice_assertEquals_DayOldBagel()
     {
         Bagel old = new Bagel(Type.ASIAGO);
-        assertEquals(.35, old.markDown());
+        old.markDown();
+        assertEquals(.35, old);
     }
 
+    private static Bag bag;
     @BeforeAll
     static void setup() {
         bag = new Bag(new Bagel(Type.SESAME_SEED), 3);
@@ -52,17 +65,17 @@ class BagTest {
 
 
 class BagArgumentsProvider_getTotalPrice implements ArgumentsProvider {
-
-    // if you wanted to break up this process into two parts you can do the following
-    //Bag bag = new Bag(new Bagel(Type.PLAIN),2);
+    Bagel oldFashioned = new Bagel(Type.PLAIN);
+    Bagel gourmet = new Bagel(Type.ASIAGO);
+    Bagel old = new Bagel(Type.BLUEBERRY);
 
     @Override
     public Stream<? extends Arguments> provideArguments(ExtensionContext arg0) throws Exception {
-        // TODO Auto-generated method stub
+        old.markDown();
         return Stream.of(
-                //Arguments.of(bag, 100)
-                Arguments.of(new Bag(new Bagel(Type.PLAIN), 2), 100),
-                Arguments.of(new Bag(new Bagel(Type.ASIAGO),3), 210)
+                Arguments.of(new Bag(oldFashioned, 3), 1.50),
+                Arguments.of(new Bag(gourmet,3), 2.10),
+                Arguments.of(new Bag(old,3), 1.05)
                 );
     }// end stream
 

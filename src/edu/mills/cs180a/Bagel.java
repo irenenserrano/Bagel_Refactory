@@ -10,6 +10,11 @@ import java.math.BigDecimal;
 public class Bagel {
 	private final Type type;
 	private Category currentCategory;
+	// Visible for Testing
+	protected static final BigDecimal OLD_FASHIONED_PRICE = BigDecimal.valueOf(0.5);
+	protected static final BigDecimal GOURMET_PRICE = BigDecimal.valueOf(0.7);
+	protected static final BigDecimal DAY_OLD_PRICE= BigDecimal.valueOf(0.35);
+
 
 	enum Type {
 		PLAIN("plain", Category.OLD_FASHIONED), POPPY_SEED("poppy seed",
@@ -39,7 +44,7 @@ public class Bagel {
 	}
 
 	enum Category {
-		OLD_FASHIONED(BigDecimal.valueOf(.5)), GOURMET(BigDecimal.valueOf(.7)), DAY_OLD(BigDecimal.valueOf(.35));
+		OLD_FASHIONED(OLD_FASHIONED_PRICE), GOURMET(GOURMET_PRICE), DAY_OLD(DAY_OLD_PRICE);
 
 		private final BigDecimal price;
 

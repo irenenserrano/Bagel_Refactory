@@ -17,7 +17,7 @@ class BagTest {
 	// testing under bulk minimum/bulk minimum/buy1get1free for each category
 	@ParameterizedTest
 	@ArgumentsSource(BagArgumentsProvider_getTotalPrice.class)
-	public void getTotalPrice_assertEquals_3BagelsEach(double price, Bag bag) {
+	void getTotalPrice_assertEquals_3BagelsEach(double price, Bag bag) {
 		assertEquals(price, bag.getTotalPrice());
 	}
 
@@ -25,14 +25,14 @@ class BagTest {
 	// fashioned and gourmet categories
 	@ParameterizedTest
 	@ArgumentsSource(BagArgumentsProvider_getPerBagelPriceOFG.class)
-	public void getPerBagelPrice_assertEquals_CorrectPricePerBagelOFG(double price, Bag bag) {
+	void getPerBagelPrice_assertEquals_CorrectPricePerBagelOFG(double price, Bag bag) {
 		assertEquals(price, bag.getPerBagelPrice());
 	}
 
 	// testing the correct price is return for each bagel that is marked down
 	@ParameterizedTest
 	@ArgumentsSource(BagArgumentsProvider_getPerBagelPriceOld.class)
-	public void getPerBagelPrice_assertEquals_CorrectPricePerBagelOld(double price, Bag bag) {
+	void getPerBagelPrice_assertEquals_CorrectPricePerBagelOld(double price, Bag bag) {
 		assertEquals(price, bag.getPerBagelPrice());
 	}
 
@@ -53,7 +53,7 @@ class BagTest {
 	private static Bagel TOMATO = new Bagel(Type.SUN_DRIED_TOMATO);
 
 	@BeforeAll
-	public static void setup() {
+	void setup() {
 		// old fashioned
 		bag3plain = new Bag(PLAIN, 3);
 		bag6plain = new Bag(PLAIN, 6);
@@ -71,7 +71,7 @@ class BagTest {
 	}
 
 	// equals - Reflexive, all three categories
-	public static void equals_True_SameBagelAmountPrice() {
+	void equals_True_SameBagelAmountPrice() {
 		// Old Fashioned
 		Bag test3plain = new Bag(PLAIN, 3);
 		Bag test6plain = new Bag(PLAIN, 6);
@@ -112,7 +112,7 @@ class BagTest {
 	}
 
 	// equals - Transitive, all three categories
-	public static void equals_True_SameCategory2DiffBagel() {
+	void equals_True_SameCategory2DiffBagel() {
 		// Old Fashioned
 		Bag test3onion = new Bag(ONION, 3);
 		Bag test6onion = new Bag(ONION, 6);
@@ -153,7 +153,7 @@ class BagTest {
 	}
 
 	// equals - Symmetric, all three categories
-	public static void equals_True_SameCategory3DiffBagel() {
+	void equals_True_SameCategory3DiffBagel() {
 		// Old Fashioned
 		Bag test3onion = new Bag(ONION, 3);
 		Bag test3everything = new Bag(EVERYTHING, 3);

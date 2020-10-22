@@ -18,28 +18,28 @@ class OrderTest {
 	// testing an order of one bag, each category, each possible size
 	@ParameterizedTest
 	@ArgumentsSource(OrderArgumentsProvider_OneBagEachCategory.class)
-	public void getPrice_assertEquals_OneBag(double price, Order order) {
+	void getPrice_assertEquals_OneBag(double price, Order order) {
 		assertEquals(price, order.getPrice());
 	}
 
 	// testing an order of two bags, all combinations, each size
 	@ParameterizedTest
 	@ArgumentsSource(OrderArgumentsProvider_TwoBags.class)
-	public void getPrice_assertEquals_TwoBags(double price, Order order) {
+	void getPrice_assertEquals_TwoBags(double price, Order order) {
 		assertEquals(price, order.getPrice());
 	}
 
 	// testing an order of three bags, most combinations, each size
 	@ParameterizedTest
 	@ArgumentsSource(OrderArgumentsProvider_ThreeBags.class)
-	public void getPrice_assertEquals_ThreeBags(double price, Order order) {
+	void getPrice_assertEquals_ThreeBags(double price, Order order) {
 		assertEquals(price, order.getPrice());
 	}
 
 	// testing an order of any size bags, random choices
 	@ParameterizedTest
 	@ArgumentsSource(OrderArgumentsProvider_FourBags.class)
-	public void getPrice_assertEquals_FourBags(double price, Order order) {
+	void getPrice_assertEquals_FourBags(double price, Order order) {
 		assertEquals(price, order.getPrice());
 	}
 
@@ -62,7 +62,7 @@ class OrderTest {
 	}
 
 	// equals - Reflexive, orders of 1-3 bags
-	public static void equals_True_SameOrderSize() {
+	void equals_True_SameOrderSize() {
 		Bag test1 = new Order(bag3plain, bag3asiago)
 	}
 
@@ -114,9 +114,12 @@ class OrderArgumentsProvider_TwoBags implements ArgumentsProvider {
 	@Override
 	public Stream<? extends Arguments> provideArguments(ExtensionContext arg0) throws Exception {
 		blueberry.markDown();
-		return Stream.of(Arguments.of(new Order(bag3plain, bag3asiago), 3.60),
-				Arguments.of(new Order(bag3plain, bag3old), 2.55), Arguments.of(new Order(bag3asiago, bag3old), 3.15),
-				Arguments.of(new Order(bag6plain, bag6asiago), 6.84), Arguments.of(new Order(bag6plain, bag6old), 4.85),
+		return Stream.of(
+				Arguments.of(new Order(bag3plain, bag3asiago), 3.60),
+				Arguments.of(new Order(bag3plain, bag3old), 2.55),
+				Arguments.of(new Order(bag3asiago, bag3old), 3.15),
+				Arguments.of(new Order(bag6plain, bag6asiago), 6.84),
+				Arguments.of(new Order(bag6plain, bag6old), 4.85),
 				Arguments.of(new Order(bag6asiago, bag6old), 5.99),
 				Arguments.of(new Order(bag13plain, bag13asiago), 13.68),
 				Arguments.of(new Order(bag13plain, bag13old), 9.69),
@@ -124,11 +127,14 @@ class OrderArgumentsProvider_TwoBags implements ArgumentsProvider {
 
 				Arguments.of(new Order(bag3plain, bag6asiago), 5.49),
 				Arguments.of(new Order(bag3plain, bag13asiago), 9.48),
-				Arguments.of(new Order(bag3plain, bag6old), 3.50), Arguments.of(new Order(bag3plain, bag13old), 5.49),
+				Arguments.of(new Order(bag3plain, bag6old), 3.50),
+				Arguments.of(new Order(bag3plain, bag13old), 5.49),
 				Arguments.of(new Order(bag3asiago, bag6plain), 4.95),
 				Arguments.of(new Order(bag3asiago, bag13plain), 7.80),
-				Arguments.of(new Order(bag3asiago, bag6old), 4.10), Arguments.of(new Order(bag3asiago, bag13old), 6.09),
-				Arguments.of(new Order(bag3old, bag6plain), 3.90), Arguments.of(new Order(bag3old, bag13plain), 6.75),
+				Arguments.of(new Order(bag3asiago, bag6old), 4.10),
+				Arguments.of(new Order(bag3asiago, bag13old), 6.09),
+				Arguments.of(new Order(bag3old, bag6plain), 3.90),
+				Arguments.of(new Order(bag3old, bag13plain), 6.75),
 				Arguments.of(new Order(bag3old, bag6asiago), 5.04),
 				Arguments.of(new Order(bag3old, bag13asiago), 9.03));
 	}// end stream
@@ -153,7 +159,8 @@ class OrderArgumentsProvider_ThreeBags implements ArgumentsProvider {
 	@Override
 	public Stream<? extends Arguments> provideArguments(ExtensionContext arg0) throws Exception {
 		blueberry.markDown();
-		return Stream.of(Arguments.of(new Order(bag3plain, bag3asiago, bag3old), 4.65),
+		return Stream.of(
+				Arguments.of(new Order(bag3plain, bag3asiago, bag3old), 4.65),
 				Arguments.of(new Order(bag3plain, bag3asiago, bag6old), 5.60),
 				Arguments.of(new Order(bag3plain, bag6asiago, bag6old), 7.49),
 				Arguments.of(new Order(bag3plain, bag6asiago, bag13old), 9.48),
@@ -196,7 +203,8 @@ class OrderArgumentsProvider_FourBags implements ArgumentsProvider {
 	@Override
 	public Stream<? extends Arguments> provideArguments(ExtensionContext arg0) throws Exception {
 		blueberry.markDown();
-		return Stream.of(Arguments.of(new Order(bag3plain, bag6asiago, bag3old, bag3tomato), 8.64),
+		return Stream.of(
+				Arguments.of(new Order(bag3plain, bag6asiago, bag3old, bag3tomato), 8.64),
 				Arguments.of(new Order(bag3tomato, bag6old, bag13plain, bag13asiago), 17.78),
 				Arguments.of(new Order(bag13old, bag13plain, bag6tomato, bag3asiago), 15.78),
 				Arguments.of(new Order(bag6tomato, bag6asiago, bag6old, bag6plain), 12.83));

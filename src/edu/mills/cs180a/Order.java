@@ -1,7 +1,6 @@
 package edu.mills.cs180a;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -10,45 +9,15 @@ import java.util.List;
  * @author Ellen Spertus
  */
 public class Order {
-    private final List<Bag> bags;
+    private static List<Bag> bags;
 
     /**
-     * Constructs an order with a single bag of bagels.
-     *
-     * @param bag the bag
-     */
-    public Order(Bag bag) {
-        bags = List.of(bag);
-    }
-
-    /**
-     * Constructs an order with two bags of bagels.
-     *
-     * @param bag1 the first bag
-     * @param bag2 the second bag
-     */
-    public Order(Bag bag1, Bag bag2) {
-        bags = List.of(bag1, bag2);
-    }
-
-    /**
-     * Constructs an order with three bags of bagels.
-     *
-     * @param bag1 the first bag
-     * @param bag2 the second bag
-     * @param bag3 the third bag
-     */
-    public Order(Bag bag1, Bag bag2, Bag bag3) {
-        bags = List.of(bag1, bag2, bag3);
-    }
-
-    /**
-     * Constructs an order with the specifies bags
+     * Constructs an order given any amount of bags
      *
      * @param bags
      */
-    public Order(Bag... bags) {
-        this.bags = Arrays.asList(bags);
+    public static void Orderof(Bag...bagsofBagels){
+        bags = List.of(bagsofBagels);
     }
 
     /**

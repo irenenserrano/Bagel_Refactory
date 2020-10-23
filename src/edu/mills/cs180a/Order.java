@@ -1,6 +1,7 @@
 package edu.mills.cs180a;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,16 +11,21 @@ import java.util.Objects;
  * @author Ellen Spertus
  */
 public class Order {
-    private static List<Bag> bags;
+    private List<Bag> bags;
+
+    // constructor
+    private Order(Bag ...bags) {
+        this.bags = Arrays.asList(bags);
+    }
 
     /**
      * Constructs an order given any amount of bags
      *
      * @param bags
      */
-    public static void Orderof(Bag... bagsofBagels) {
-        bags = List.of(bagsofBagels);
-    }// end constructor
+    public static Order of(Bag... bagsOfBagels) {
+        return new Order(bagsOfBagels);
+    }
 
     /**
      * Generates the total price of a single order based on the contents of each bag
@@ -100,3 +106,4 @@ public class Order {
         return result;
     }
 }// end class
+

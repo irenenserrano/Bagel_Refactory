@@ -39,6 +39,7 @@ public class Bag {
         if (this.getQuantity() < 1) {
             throw new IllegalArgumentException("Not a valid order");
         }
+
     }// end constructor
 
     /**

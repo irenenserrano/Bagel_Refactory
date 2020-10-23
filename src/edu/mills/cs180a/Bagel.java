@@ -115,4 +115,5 @@ public class Bagel {
     public int hashCode() {
         return Objects.hash(this.type, getCategory());
     }
+
 }// end class

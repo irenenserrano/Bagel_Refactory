@@ -201,7 +201,7 @@ class OrderTest {
     }// end makeBagArguments
 
     private static Order makeOrder(Bag... bags) {
-        return new Order(bags);
+        return Order.of(bags);
     }// end makeOrderArguments
 
     static class OrderArgumentsProvider_OneBagEachCategory implements ArgumentsProvider {

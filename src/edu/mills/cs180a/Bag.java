@@ -29,7 +29,7 @@ public class Bag {
     public Bag(Bagel bagel, int quantity) {
         this.bagel = bagel;
         this.quantity = quantity;
-    }
+    }// end constructor
 
     /**
      * Gets the bagel held in this bag.
@@ -38,7 +38,7 @@ public class Bag {
      */
     public Bagel getBagel() {
         return bagel;
-    }
+    }// end getBagel
 
     /**
      * Gets the number of bagels in this bag.
@@ -47,7 +47,7 @@ public class Bag {
      */
     public int getQuantity() {
         return quantity;
-    }
+    }// end getQuantity
 
     /**
      * Gets the total price for this bag of bagels. This may be less than the per-bagel price times
@@ -64,7 +64,7 @@ public class Bag {
             return undiscountedPrice.multiply(BULK_DISCOUNT_MULTIPLIER);
         }
         return undiscountedPrice;
-    }
+    }// end getTotalPrice
 
     /**
      * Returns the price associated with the bagel type.
@@ -73,13 +73,22 @@ public class Bag {
      */
     public BigDecimal getPerBagelPrice() {
         return bagel.getCategory().getPrice();
-    }
+    }// end getPerBagelPrice
 
     @Override
     public String toString() {
         return bagel.toString();
-    }
+    }// end toString
 
+    public boolean equals(Bag bag1, Bag bag2) {
+        Bagel bag1Bagel = bag1.getBagel();
+        Bagel bag2Bagel = bag2.getBagel();
+        int bag1amount = bag1.getQuantity();
+        int bag2amount = bag2.getQuantity();
 
-}
+        if(bag1Bagel.equals(bag2Bagel) && bag1amount == bag2amount)
+            return true;
+        return false;
+    }// end equals
+}// end class
 

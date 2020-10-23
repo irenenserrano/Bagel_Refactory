@@ -18,7 +18,7 @@ public class Order {
      */
     public static void Orderof(Bag...bagsofBagels){
         bags = List.of(bagsofBagels);
-    }
+    }// end constructor
 
     /**
      * Generates the total price of a single order based on the contents of each bag
@@ -31,7 +31,7 @@ public class Order {
             price = price.add(bag.getTotalPrice());
         }
         return price;
-    }
+    }// end getPrice
 
     /**
      * Generates a printed receipt containing the contents, discounts, and total final price
@@ -59,11 +59,19 @@ public class Order {
         s += "TOTAL: $" + total + "\n";
         s += "Thank you for shopping at the Bagel Refactory!\n";
         return s;
-    }
+    }// end generateReciept
 
     @Override
     public String toString() {
         return bags.toString();
     }
 
-}
+    public boolean equals(Order order1, Order order2) {
+        BigDecimal price1 = order1.getPrice();
+        BigDecimal price2 = order2.getPrice();
+
+        if(price1 == price2)
+            return true;
+        return false;
+    }// end equals
+}// end class

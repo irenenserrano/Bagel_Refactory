@@ -2,6 +2,7 @@ package edu.mills.cs180a;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A Bagel Refactory order consisting of one or more instances of {@link Bag}.
@@ -77,12 +78,11 @@ public class Order {
 
     @Override
     public int hashCode() {
-        int result =0;
-        for (Bag bag: bags) {
-            result = bag.getBagel().hashCode();
-            result = 31 * result + bag.getQuantity();
+        int result = 0;
+        for (Bag bag : bags) {
+            result = Objects.hash(bag.getBagel(), bag.getQuantity(), bag.getPerBagelPrice(),
+                    bag.getTotalPrice());
         }
-
         return result;
     }
 }// end class

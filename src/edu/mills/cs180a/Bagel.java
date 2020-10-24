@@ -1,6 +1,7 @@
 package edu.mills.cs180a;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * A type of bagel.
@@ -110,8 +111,6 @@ public class Bagel {
 
     @Override
     public int hashCode() {
-        int result = type.toString().hashCode();
-        result = 31 * result + getCategory().hashCode();
-        return result;
+        return Objects.hash(this.type, getCategory());
     }
 }// end class

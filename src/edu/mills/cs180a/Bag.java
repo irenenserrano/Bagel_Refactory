@@ -1,6 +1,7 @@
 package edu.mills.cs180a;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * A bag of any quantity of a single type of bagel.
@@ -93,9 +94,7 @@ public class Bag {
 
     @Override
     public int hashCode() {
-        int result = getBagel().hashCode();
-        result = 31 * result + getQuantity();
-        return result;
+        return Objects.hash(getBagel(), getQuantity());
     }
 }// end class
 

@@ -16,7 +16,8 @@ public class Bag {
     // If the Baker's Dozen discount doesn't apply, we give a percentage discount.
     private static final int BULK_DISCOUNT_MINIMUM = 6;
     private static final BigDecimal BULK_DISCOUNT_PERCENTAGE = BigDecimal.valueOf(.05);
-    private static final BigDecimal BULK_DISCOUNT_MULTIPLIER = BigDecimal.valueOf(1).subtract(BULK_DISCOUNT_PERCENTAGE);
+    private static final BigDecimal BULK_DISCOUNT_MULTIPLIER =
+            BigDecimal.valueOf(1).subtract(BULK_DISCOUNT_PERCENTAGE);
 
     private final Bagel bagel;
     private final int quantity;
@@ -81,13 +82,19 @@ public class Bag {
         return bagel.toString();
     }// end toString
 
-    public boolean equals(Bag bag1, Bag bag2) {
-        Bagel bag1Bagel = bag1.getBagel();
-        Bagel bag2Bagel = bag2.getBagel();
-        int bag1amount = bag1.getQuantity();
-        int bag2amount = bag2.getQuantity();
+    @Override
+    public boolean equals(Object object) {
+        // check to see that the object passed in is a Bag
+        if (!(object instanceof Bag))
+            return false;
 
-        if(bag1Bagel.equals(bag2Bagel) && bag1amount == bag2amount)
+        Bagel bagel = ((Bag) object).getBagel();
+        BigDecimal singlePrice = ((Bag) object).getPerBagelPrice();
+        int amount = ((Bag) object).getQuantity();
+        BigDecimal totalPrice = ((Bag) object).getTotalPrice();
+
+        if (bagel.equals(this.getBagel()) && singlePrice == this.getPerBagelPrice()
+                && amount == this.getQuantity() && totalPrice == this.getTotalPrice())
             return true;
         return false;
     }// end equals

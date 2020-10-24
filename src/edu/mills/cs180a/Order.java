@@ -67,14 +67,28 @@ public class Order {
         return bags.toString();
     }
 
-    public boolean equals(Order order1, Order order2) {
-        BigDecimal price1 = order1.getPrice();
-        BigDecimal price2 = order2.getPrice();
+    @Override
+    public boolean equals(Object object) {
+        // check to see that the object is an Order
+        if (!(object instanceof Order))
+            return false;
 
-        if (price1 == price2)
-            return true;
+        String bagelType = ((Bag) object).getBagel().getType().toString();
+        String bagelCategory = ((Bag) object).getBagel().getCategory().toString();
+        BigDecimal singlePrice = ((Bag) object).getPerBagelPrice();
+        int amount = ((Bag) object).getQuantity();
+        BigDecimal totalPrice = ((Bag) object).getTotalPrice();
+
+        for (Bag bag : bags) {
+            if (bagelType.equals(bag.getBagel().getType().toString())
+                    && bagelCategory.equals(bag.getBagel().getCategory().toString())
+                    && singlePrice == bag.getPerBagelPrice()
+                    && amount == bag.getQuantity() && totalPrice == bag.getTotalPrice())
+                return true;
+        }
+
         return false;
-    }// end equals
+    }
 
     @Override
     public int hashCode() {

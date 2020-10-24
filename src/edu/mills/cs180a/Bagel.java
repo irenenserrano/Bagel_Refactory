@@ -98,16 +98,18 @@ public class Bagel {
         return type.toString();
     }// end toString
 
-    public boolean equals(Bagel bagel1, Bagel bagel2) {
-        String type1 = bagel1.getType().toString();
-        String type2 = bagel2.getType().toString();
-        Category category1 = bagel1.getCategory();
-        Category category2 = bagel2.getCategory();
+    @Override
+    public boolean equals(Object object) {
+        // check to see that the object is a Bagel
+        if(!(object instanceof Order))
+            return false;
 
-        if (type1.equals(type2) && category1.equals(category2))
+        String type = ((Bagel) object).getType().toString();
+        Category category = ((Bagel) object).getCategory();
+        if (type.equals(this.type) && category.equals(this.getCategory()))
             return true;
         return false;
-    }// end boolean
+    }// end equals
 
     @Override
     public int hashCode() {

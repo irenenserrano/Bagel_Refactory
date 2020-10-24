@@ -90,5 +90,12 @@ public class Bag {
             return true;
         return false;
     }// end equals
+
+    @Override
+    public int hashCode() {
+        int result = getBagel().hashCode();
+        result = 31 * result + getQuantity();
+        return result;
+    }
 }// end class
 

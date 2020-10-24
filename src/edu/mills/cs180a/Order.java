@@ -16,7 +16,7 @@ public class Order {
      *
      * @param bags
      */
-    public static void Orderof(Bag...bagsofBagels){
+    public static void Orderof(Bag... bagsofBagels) {
         bags = List.of(bagsofBagels);
     }// end constructor
 
@@ -70,8 +70,19 @@ public class Order {
         BigDecimal price1 = order1.getPrice();
         BigDecimal price2 = order2.getPrice();
 
-        if(price1 == price2)
+        if (price1 == price2)
             return true;
         return false;
     }// end equals
+
+    @Override
+    public int hashCode() {
+        int result =0;
+        for (Bag bag: bags) {
+            result = bag.getBagel().hashCode();
+            result = 31 * result + bag.getQuantity();
+        }
+
+        return result;
+    }
 }// end class

@@ -97,7 +97,6 @@ public class Bagel {
         return type.toString();
     }// end toString
 
-
     public boolean equals(Bagel bagel1, Bagel bagel2) {
         String type1 = bagel1.getType().toString();
         String type2 = bagel2.getType().toString();
@@ -108,4 +107,11 @@ public class Bagel {
             return true;
         return false;
     }// end boolean
+
+    @Override
+    public int hashCode() {
+        int result = type.toString().hashCode();
+        result = 31 * result + getCategory().hashCode();
+        return result;
+    }
 }// end class

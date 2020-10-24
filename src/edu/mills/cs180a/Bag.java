@@ -27,10 +27,18 @@ public class Bag {
      *
      * @param bagel the type of bagel
      * @param quantity the quantity
+     * @throws IllegalArguementException if the quantity passed is out of range from 1 to 13
      */
     public Bag(Bagel bagel, int quantity) {
         this.bagel = bagel;
         this.quantity = quantity;
+        if (this.quantity > 13) {
+            throw new IllegalArgumentException("Orders must be under 13 bagels");
+        }
+
+        if (this.getQuantity() < 1) {
+            throw new IllegalArgumentException("Not a valid order");
+        }
     }// end constructor
 
     /**

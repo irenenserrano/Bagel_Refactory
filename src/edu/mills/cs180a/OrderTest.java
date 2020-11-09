@@ -42,158 +42,191 @@ class OrderTest {
         assertEquals(cost, order.getPrice());
     }
 
-    private static Bag bagPlain3;
-    private static Bag bagOnion3;
-    private static Bag bagSesame3;
-    private static Bag bagPoppy3;
+    private static Bag BAG_PLAIN_3;
+    private static Bag BAG_ONION_3;
+    private static Bag BAG_SESAME_3;
+    private static Bag BAG_POPPY_3;
 
-    private static Bag bagAsiago3;
-    private static Bag bagBlueberry3;
-    private static Bag bagCinnamon3;
+    private static Bag BAG_ASIAGO_3;
+    private static Bag BAG_BLUEBERRY_3;
+    private static Bag BAG_CINNAMON_3;
 
-    private static Bag bagOldPlain3;
-    private static Bag bagOldTomato3;
-    private static Bag bagOldEverything3;
-    private static Bag bagOldAsiago3;
+    private static Bag BAG_OLDPLAIN_3;
+    private static Bag BAG_OLDTOMATO_3;
+    private static Bag BAG_OLDEVERYTHING_3;
+    private static Bag BAG_OLDASIAGO_3;
 
     @BeforeAll
     public static void setup() {
-        bagPlain3 = makeBag(Type.PLAIN, 3);
-        bagOnion3 = makeBag(Type.ONION, 3);
-        bagSesame3 = makeBag(Type.SESAME_SEED, 3);
-        bagPoppy3 = makeBag(Type.POPPY_SEED, 3);
+        BAG_PLAIN_3 = makeBag(Type.PLAIN, 3);
+        BAG_ONION_3 = makeBag(Type.ONION, 3);
+        BAG_SESAME_3 = makeBag(Type.SESAME_SEED, 3);
+        BAG_POPPY_3 = makeBag(Type.POPPY_SEED, 3);
 
-        bagAsiago3 = makeBag(Type.ASIAGO, 3);
-        bagBlueberry3 = makeBag(Type.BLUEBERRY, 3);
-        bagCinnamon3 = makeBag(Type.CINNAMON_RAISIN, 3);
+        BAG_ASIAGO_3 = makeBag(Type.ASIAGO, 3);
+        BAG_BLUEBERRY_3 = makeBag(Type.BLUEBERRY, 3);
+        BAG_CINNAMON_3 = makeBag(Type.CINNAMON_RAISIN, 3);
 
         Bagel plain = new Bagel(Type.PLAIN);
         plain.markDown();
-        bagOldPlain3 = new Bag(plain, 3);
+        BAG_OLDPLAIN_3 = new Bag(plain, 3);
         Bagel tomato = new Bagel(Type.SUN_DRIED_TOMATO);
         tomato.markDown();
-        bagOldTomato3 = new Bag(tomato, 3);
+        BAG_OLDTOMATO_3 = new Bag(tomato, 3);
         Bagel everything = new Bagel(Type.EVERYTHING);
         everything.markDown();
-        bagOldEverything3 = new Bag(everything, 3);
+        BAG_OLDEVERYTHING_3 = new Bag(everything, 3);
         Bagel asiago = new Bagel(Type.ASIAGO);
         asiago.markDown();
-        bagOldAsiago3 = new Bag(asiago, 3);
+        BAG_OLDASIAGO_3 = new Bag(asiago, 3);
 
     }
 
     // Reflexive - all categories, 1-4 bags
     void equals_True_SameBagSameTotalPrice() {
         // Old Fashioned
-        assertEquals(makeOrder(bagPlain3).getPrice(), makeOrder(bagPlain3).getPrice());
-        assertEquals(makeOrder(bagPlain3, bagOnion3).getPrice(),makeOrder(bagPlain3, bagOnion3).getPrice());
-        assertEquals(makeOrder(bagPlain3, bagOnion3, bagSesame3).getPrice(),makeOrder(bagPlain3, bagOnion3, bagSesame3).getPrice());
-        assertEquals(makeOrder(bagPlain3, bagOnion3, bagSesame3, bagPoppy3).getPrice(),makeOrder(bagPlain3, bagOnion3, bagSesame3, bagPoppy3).getPrice());
+        assertEquals(makeOrder(BAG_PLAIN_3).getPrice(), makeOrder(BAG_PLAIN_3).getPrice());
+        assertEquals(makeOrder(BAG_PLAIN_3, BAG_ONION_3).getPrice(),
+                makeOrder(BAG_PLAIN_3, BAG_ONION_3).getPrice());
+        assertEquals(makeOrder(BAG_PLAIN_3, BAG_ONION_3, BAG_SESAME_3).getPrice(),
+                makeOrder(BAG_PLAIN_3, BAG_ONION_3, BAG_SESAME_3).getPrice());
+        assertEquals(makeOrder(BAG_PLAIN_3, BAG_ONION_3, BAG_SESAME_3, BAG_POPPY_3).getPrice(),
+                makeOrder(BAG_PLAIN_3, BAG_ONION_3, BAG_SESAME_3, BAG_POPPY_3).getPrice());
 
         // Gourmet
-        assertEquals(makeOrder(bagAsiago3).getPrice(), makeOrder(bagAsiago3).getPrice());
-        assertEquals(makeOrder(bagAsiago3, bagBlueberry3).getPrice(),makeOrder(bagAsiago3, bagBlueberry3).getPrice());
-        assertEquals(makeOrder(bagAsiago3, bagBlueberry3, bagCinnamon3).getPrice(),makeOrder(bagAsiago3, bagBlueberry3, bagCinnamon3).getPrice());
+        assertEquals(makeOrder(BAG_ASIAGO_3).getPrice(), makeOrder(BAG_ASIAGO_3).getPrice());
+        assertEquals(makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3).getPrice(),
+                makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3).getPrice());
+        assertEquals(makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3, BAG_CINNAMON_3).getPrice(),
+                makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3, BAG_CINNAMON_3).getPrice());
 
         // Day Old
-        assertEquals(makeOrder(bagOldPlain3).getPrice(), makeOrder(bagOldPlain3).getPrice());
-        assertEquals(makeOrder(bagOldPlain3, bagOldTomato3).getPrice(),makeOrder(bagOldPlain3, bagOldTomato3).getPrice());
-        assertEquals(makeOrder(bagOldPlain3, bagOldTomato3, bagOldEverything3).getPrice(),makeOrder(bagOldPlain3, bagOldTomato3, bagOldEverything3).getPrice());
-        assertEquals(makeOrder(bagOldPlain3, bagOldTomato3, bagOldEverything3, bagOldAsiago3).getPrice(),makeOrder(bagOldPlain3, bagOldTomato3, bagOldEverything3, bagOldAsiago3).getPrice());
+        assertEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(), makeOrder(BAG_OLDPLAIN_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3).getPrice(),
+                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3).getPrice(),
+                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3).getPrice());
+        assertEquals(
+                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3, BAG_OLDASIAGO_3)
+                .getPrice(),
+                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3, BAG_OLDASIAGO_3)
+                .getPrice());
     }
 
     // Symmetric - all categories, all possible sizes
     void equals_True_DiffBagSameTotalPrice() {
         // Old Fashioned
-        assertEquals(makeOrder(bagPlain3).getPrice(), makeOrder(bagOnion3).getPrice());
-        assertEquals(makeOrder(bagOnion3).getPrice(), makeOrder(bagPlain3).getPrice());
-        assertEquals(makeOrder(bagPlain3, bagOnion3).getPrice(),makeOrder(bagSesame3, bagPoppy3).getPrice());
-        assertEquals(makeOrder(bagSesame3, bagPoppy3).getPrice(),makeOrder(bagPlain3, bagOnion3).getPrice());
-        assertEquals(makeOrder(bagSesame3, bagPoppy3, bagPlain3).getPrice(),makeOrder(bagOnion3).getPrice());
-        assertEquals(makeOrder(bagOnion3).getPrice(),makeOrder(bagSesame3, bagPoppy3, bagPlain3).getPrice());
+        assertEquals(makeOrder(BAG_PLAIN_3).getPrice(), makeOrder(BAG_ONION_3).getPrice());
+        assertEquals(makeOrder(BAG_ONION_3).getPrice(), makeOrder(BAG_PLAIN_3).getPrice());
+        assertEquals(makeOrder(BAG_PLAIN_3, BAG_ONION_3).getPrice(),
+                makeOrder(BAG_SESAME_3, BAG_POPPY_3).getPrice());
+        assertEquals(makeOrder(BAG_SESAME_3, BAG_POPPY_3).getPrice(),
+                makeOrder(BAG_PLAIN_3, BAG_ONION_3).getPrice());
+        assertEquals(makeOrder(BAG_SESAME_3, BAG_POPPY_3, BAG_PLAIN_3).getPrice(),
+                makeOrder(BAG_ONION_3).getPrice());
+        assertEquals(makeOrder(BAG_ONION_3).getPrice(),
+                makeOrder(BAG_SESAME_3, BAG_POPPY_3, BAG_PLAIN_3).getPrice());
 
         // Gourmet
-        assertEquals(makeOrder(bagAsiago3).getPrice(), makeOrder(bagBlueberry3).getPrice());
-        assertEquals(makeOrder(bagBlueberry3).getPrice(), makeOrder(bagAsiago3).getPrice());
-        assertEquals(makeOrder(bagAsiago3, bagBlueberry3).getPrice(),makeOrder(bagCinnamon3).getPrice());
-        assertEquals(makeOrder(bagCinnamon3).getPrice(),makeOrder(bagAsiago3, bagBlueberry3).getPrice());
+        assertEquals(makeOrder(BAG_ASIAGO_3).getPrice(), makeOrder(BAG_BLUEBERRY_3).getPrice());
+        assertEquals(makeOrder(BAG_BLUEBERRY_3).getPrice(), makeOrder(BAG_ASIAGO_3).getPrice());
+        assertEquals(makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3).getPrice(),
+                makeOrder(BAG_CINNAMON_3).getPrice());
+        assertEquals(makeOrder(BAG_CINNAMON_3).getPrice(),
+                makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3).getPrice());
 
         // Day Old
-        assertEquals(makeOrder(bagOldPlain3).getPrice(), makeOrder(bagOldTomato3).getPrice());
-        assertEquals(makeOrder(bagOldTomato3).getPrice(), makeOrder(bagOldPlain3).getPrice());
-        assertEquals(makeOrder(bagOldPlain3, bagOldTomato3).getPrice(), makeOrder(bagOldEverything3, bagOldAsiago3).getPrice());
-        assertEquals(makeOrder(bagOldEverything3, bagOldAsiago3).getPrice(),makeOrder(bagOldPlain3, bagOldTomato3).getPrice());
-        assertEquals(makeOrder(bagOldPlain3, bagOldTomato3, bagOldEverything3).getPrice(), makeOrder(bagOldAsiago3).getPrice());
-        assertEquals(makeOrder(bagOldAsiago3).getPrice(),makeOrder(bagOldPlain3, bagOldTomato3, bagOldEverything3).getPrice());
+        assertEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(), makeOrder(BAG_OLDTOMATO_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDTOMATO_3).getPrice(), makeOrder(BAG_OLDPLAIN_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3).getPrice(),
+                makeOrder(BAG_OLDEVERYTHING_3, BAG_OLDASIAGO_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDEVERYTHING_3, BAG_OLDASIAGO_3).getPrice(),
+                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3).getPrice(),
+                makeOrder(BAG_OLDASIAGO_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDASIAGO_3).getPrice(),
+                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3).getPrice());
     }
 
     // Transitive - all categories, all possible sizes
     void equals_True_3DiffBagSameTotalPrice() {
         // Old Fashioned
-        assertEquals(makeOrder(bagPlain3).getPrice(), makeOrder(bagOnion3).getPrice());
-        assertEquals(makeOrder(bagOnion3).getPrice(), makeOrder(bagSesame3).getPrice());
-        assertEquals(makeOrder(bagPlain3).getPrice(), makeOrder(bagSesame3).getPrice());
-        assertEquals(makeOrder(bagPoppy3).getPrice(), makeOrder(bagSesame3).getPrice());
-        assertEquals(makeOrder(bagSesame3).getPrice(), makeOrder(bagPlain3).getPrice());
-        assertEquals(makeOrder(bagPoppy3).getPrice(), makeOrder(bagPlain3).getPrice());
+        assertEquals(makeOrder(BAG_PLAIN_3).getPrice(), makeOrder(BAG_ONION_3).getPrice());
+        assertEquals(makeOrder(BAG_ONION_3).getPrice(), makeOrder(BAG_SESAME_3).getPrice());
+        assertEquals(makeOrder(BAG_PLAIN_3).getPrice(), makeOrder(BAG_SESAME_3).getPrice());
+        assertEquals(makeOrder(BAG_POPPY_3).getPrice(), makeOrder(BAG_SESAME_3).getPrice());
+        assertEquals(makeOrder(BAG_SESAME_3).getPrice(), makeOrder(BAG_PLAIN_3).getPrice());
+        assertEquals(makeOrder(BAG_POPPY_3).getPrice(), makeOrder(BAG_PLAIN_3).getPrice());
 
         // Gourmet
-        assertEquals(makeOrder(bagAsiago3).getPrice(), makeOrder(bagBlueberry3).getPrice());
-        assertEquals(makeOrder(bagBlueberry3).getPrice(), makeOrder(bagCinnamon3).getPrice());
-        assertEquals(makeOrder(bagAsiago3).getPrice(), makeOrder(bagCinnamon3).getPrice());
+        assertEquals(makeOrder(BAG_ASIAGO_3).getPrice(), makeOrder(BAG_BLUEBERRY_3).getPrice());
+        assertEquals(makeOrder(BAG_BLUEBERRY_3).getPrice(), makeOrder(BAG_CINNAMON_3).getPrice());
+        assertEquals(makeOrder(BAG_ASIAGO_3).getPrice(), makeOrder(BAG_CINNAMON_3).getPrice());
 
         // Day Old
-        assertEquals(makeOrder(bagOldPlain3).getPrice(), makeOrder(bagOldTomato3).getPrice());
-        assertEquals(makeOrder(bagOldTomato3).getPrice(), makeOrder(bagOldEverything3).getPrice());
-        assertEquals(makeOrder(bagOldPlain3).getPrice(), makeOrder(bagOldEverything3).getPrice());
-        assertEquals(makeOrder(bagOldPlain3).getPrice(), makeOrder(bagOldAsiago3).getPrice());
-        assertEquals(makeOrder(bagOldAsiago3).getPrice(), makeOrder(bagOldTomato3).getPrice());
-        assertEquals(makeOrder(bagOldPlain3).getPrice(), makeOrder(bagOldTomato3).getPrice());
+        assertEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(), makeOrder(BAG_OLDTOMATO_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDTOMATO_3).getPrice(),
+                makeOrder(BAG_OLDEVERYTHING_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(),
+                makeOrder(BAG_OLDEVERYTHING_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(), makeOrder(BAG_OLDASIAGO_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDASIAGO_3).getPrice(), makeOrder(BAG_OLDTOMATO_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(), makeOrder(BAG_OLDTOMATO_3).getPrice());
     }
 
     // Consistent - all categories, all possible sizes
     void equals_True_DiffBagSameTotalPriceLater() {
         // Old Fashioned
-        assertEquals(makeOrder(bagPlain3).getPrice(), makeOrder(bagOnion3).getPrice());
-        assertEquals(makeOrder(bagOnion3).getPrice(), makeOrder(bagPlain3).getPrice());
-        assertEquals(makeOrder(bagPlain3, bagOnion3).getPrice(),makeOrder(bagSesame3, bagPoppy3).getPrice());
-        assertEquals(makeOrder(bagSesame3, bagPoppy3).getPrice(),makeOrder(bagPlain3, bagOnion3).getPrice());
-        assertEquals(makeOrder(bagSesame3, bagPoppy3, bagPlain3).getPrice(),makeOrder(bagOnion3).getPrice());
-        assertEquals(makeOrder(bagOnion3).getPrice(),makeOrder(bagSesame3, bagPoppy3, bagPlain3).getPrice());
+        assertEquals(makeOrder(BAG_PLAIN_3).getPrice(), makeOrder(BAG_ONION_3).getPrice());
+        assertEquals(makeOrder(BAG_ONION_3).getPrice(), makeOrder(BAG_PLAIN_3).getPrice());
+        assertEquals(makeOrder(BAG_PLAIN_3, BAG_ONION_3).getPrice(),
+                makeOrder(BAG_SESAME_3, BAG_POPPY_3).getPrice());
+        assertEquals(makeOrder(BAG_SESAME_3, BAG_POPPY_3).getPrice(),
+                makeOrder(BAG_PLAIN_3, BAG_ONION_3).getPrice());
+        assertEquals(makeOrder(BAG_SESAME_3, BAG_POPPY_3, BAG_PLAIN_3).getPrice(),
+                makeOrder(BAG_ONION_3).getPrice());
+        assertEquals(makeOrder(BAG_ONION_3).getPrice(),
+                makeOrder(BAG_SESAME_3, BAG_POPPY_3, BAG_PLAIN_3).getPrice());
 
         // Gourmet
-        assertEquals(makeOrder(bagAsiago3).getPrice(), makeOrder(bagBlueberry3).getPrice());
-        assertEquals(makeOrder(bagBlueberry3).getPrice(), makeOrder(bagAsiago3).getPrice());
-        assertEquals(makeOrder(bagAsiago3, bagBlueberry3).getPrice(),makeOrder(bagCinnamon3).getPrice());
-        assertEquals(makeOrder(bagCinnamon3).getPrice(),makeOrder(bagAsiago3, bagBlueberry3).getPrice());
+        assertEquals(makeOrder(BAG_ASIAGO_3).getPrice(), makeOrder(BAG_BLUEBERRY_3).getPrice());
+        assertEquals(makeOrder(BAG_BLUEBERRY_3).getPrice(), makeOrder(BAG_ASIAGO_3).getPrice());
+        assertEquals(makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3).getPrice(),
+                makeOrder(BAG_CINNAMON_3).getPrice());
+        assertEquals(makeOrder(BAG_CINNAMON_3).getPrice(),
+                makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3).getPrice());
 
         // Day Old
-        assertEquals(makeOrder(bagOldPlain3).getPrice(), makeOrder(bagOldTomato3).getPrice());
-        assertEquals(makeOrder(bagOldTomato3).getPrice(), makeOrder(bagOldPlain3).getPrice());
-        assertEquals(makeOrder(bagOldPlain3, bagOldTomato3).getPrice(), makeOrder(bagOldEverything3, bagOldAsiago3).getPrice());
-        assertEquals(makeOrder(bagOldEverything3, bagOldAsiago3).getPrice(),makeOrder(bagOldPlain3, bagOldTomato3).getPrice());
-        assertEquals(makeOrder(bagOldPlain3, bagOldTomato3, bagOldEverything3).getPrice(), makeOrder(bagOldAsiago3).getPrice());
-        assertEquals(makeOrder(bagOldAsiago3).getPrice(),makeOrder(bagOldPlain3, bagOldTomato3, bagOldEverything3).getPrice());
+        assertEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(), makeOrder(BAG_OLDTOMATO_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDTOMATO_3).getPrice(), makeOrder(BAG_OLDPLAIN_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3).getPrice(),
+                makeOrder(BAG_OLDEVERYTHING_3, BAG_OLDASIAGO_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDEVERYTHING_3, BAG_OLDASIAGO_3).getPrice(),
+                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3).getPrice(),
+                makeOrder(BAG_OLDASIAGO_3).getPrice());
+        assertEquals(makeOrder(BAG_OLDASIAGO_3).getPrice(),
+                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3).getPrice());
     }
 
     // Not Null - all categories, all possible sizes
     void equals_False_Null() {
         // Old Fashioned
-        assertNotEquals(makeOrder(bagPlain3).getPrice(),makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(bagOnion3).getPrice(),makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(bagSesame3).getPrice(),makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(bagPoppy3).getPrice(),makeOrder(null).getPrice());
+        assertNotEquals(makeOrder(BAG_PLAIN_3).getPrice(), makeOrder(null).getPrice());
+        assertNotEquals(makeOrder(BAG_ONION_3).getPrice(), makeOrder(null).getPrice());
+        assertNotEquals(makeOrder(BAG_SESAME_3).getPrice(), makeOrder(null).getPrice());
+        assertNotEquals(makeOrder(BAG_POPPY_3).getPrice(), makeOrder(null).getPrice());
 
         // Gourmet
-        assertNotEquals(makeOrder(bagAsiago3).getPrice(),makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(bagBlueberry3).getPrice(),makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(bagCinnamon3).getPrice(),makeOrder(null).getPrice());
+        assertNotEquals(makeOrder(BAG_ASIAGO_3).getPrice(), makeOrder(null).getPrice());
+        assertNotEquals(makeOrder(BAG_BLUEBERRY_3).getPrice(), makeOrder(null).getPrice());
+        assertNotEquals(makeOrder(BAG_CINNAMON_3).getPrice(), makeOrder(null).getPrice());
 
         // Day Old
-        assertNotEquals(makeOrder(bagOldPlain3).getPrice(),makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(bagOldTomato3).getPrice(),makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(bagOldEverything3).getPrice(),makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(bagOldAsiago3).getPrice(),makeOrder(null).getPrice());
+        assertNotEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(), makeOrder(null).getPrice());
+        assertNotEquals(makeOrder(BAG_OLDTOMATO_3).getPrice(), makeOrder(null).getPrice());
+        assertNotEquals(makeOrder(BAG_OLDEVERYTHING_3).getPrice(), makeOrder(null).getPrice());
+        assertNotEquals(makeOrder(BAG_OLDASIAGO_3).getPrice(), makeOrder(null).getPrice());
     }
 
     private static Bag makeBag(Bagel.Type type, int quantity) {

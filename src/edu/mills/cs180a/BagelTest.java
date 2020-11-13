@@ -1,6 +1,7 @@
 package edu.mills.cs180a;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.BeforeAll;
 import edu.mills.cs180a.Bagel.Type;
 
@@ -25,7 +26,7 @@ class BagelTest {
     }
 
     // Reflexive - all categories
-    void equals_true_SameBagelSameTypeSameCategory() {
+    void equals_True_SameBagelSameTypeSameCategory() {
         // Old Fashioned
         assertEquals(PLAIN.getCategory(), PLAIN.getCategory());
         assertEquals(PLAIN.getType(), PLAIN.getType());
@@ -40,7 +41,61 @@ class BagelTest {
     }
 
     // Symmetric - all categories
-    void equals_true_DifferentBagelSameCategory() {
+    void equals_True_DifferentBagelSameCategory() {
+        // Old Fashioned
+        assertEquals(PLAIN.getCategory(), ONION.getCategory());
 
+        // Gourmet
+        assertEquals(ASIAGO.getCategory(), BLUEBERRY.getCategory());
+
+        // Day Old
+        assertEquals(OLD_1.getCategory(), OLD_2.getCategory());
+    }
+
+    void equals_False_DifferentBagelDifferentType() {
+        // Old Fashioned
+        assertNotEquals(PLAIN.getType(), ONION.getType());
+
+        // Gourmet
+        assertNotEquals(ASIAGO.getType(), BLUEBERRY.getType());
+
+        // Day Old
+        assertNotEquals(OLD_1.getType(), OLD_2.getType());
+    }
+
+    // Transitive - all categories
+    void equals_True_ThereBagelsSameCategory() {
+        // Old Fashioned
+        Bagel everything = new Bagel(Type.CINNAMON_RAISIN);
+        assertEquals(PLAIN.getCategory(), ONION.getCategory());
+        assertEquals(ONION.getCategory(), everything.getCategory());
+        assertEquals(PLAIN.getCategory(), everything.getCategory());
+
+        // Gourment
+        Bagel tomato = new Bagel(Type.SUN_DRIED_TOMATO);
+        assertEquals(ASIAGO.getCategory(), BLUEBERRY.getCategory());
+        assertEquals(BLUEBERRY.getCategory(), tomato.getCategory());
+        assertEquals(ASIAGO.getCategory(), tomato.getCategory());
+
+        // Day old
+        tomato.markDown();
+        assertEquals(OLD_1.getCategory(), OLD_2.getCategory());
+        assertEquals(OLD_2.getCategory(), tomato.getCategory());
+        assertEquals(OLD_1.getCategory(), tomato.getCategory());
+    }
+
+    // Not Null - all categories
+    void equals_False_Null() {
+        // Old Fashioned
+        assertNotEquals(PLAIN.getType(),null);
+        assertNotEquals(PLAIN.getCategory(), null);
+
+        // Gourmet
+        assertNotEquals(ASIAGO.getType(), null);
+        assertNotEquals(ASIAGO.getCategory(), null);
+
+        // Day Old
+        assertNotEquals(OLD_1.getType(), null);
+        assertNotEquals(OLD_1.getCategory(), null);
     }
 }

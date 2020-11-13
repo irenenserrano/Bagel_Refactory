@@ -33,7 +33,7 @@ public class Order {
      * @return price
      */
     public BigDecimal getPrice() {
-        BigDecimal price = BigDecimal.valueOf(0);
+        BigDecimal price = new BigDecimal(0);
         for (Bag bag : bags) {
             price = price.add(bag.getTotalPrice());
         }

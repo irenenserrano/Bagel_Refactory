@@ -27,13 +27,6 @@ class BagTest {
         assertEquals(cost, bag.getPerBagelPrice());
     }
 
-    // testing the correct price is return for each bagel that is marked down
-    @ParameterizedTest
-    @ArgumentsSource(BagArgumentsProvider_getPerBagelPriceOld.class)
-    void getPerBagelPrice_assertEquals_CorrectPricePerBagelOld(Bag bag, BigDecimal cost) {
-        assertEquals(cost, bag.getPerBagelPrice());
-    }
-
     private static Bag makeBag(Bagel.Type type, int quantity) {
         return new Bag(new Bagel(type), quantity);
     }// end makeBagArguments
@@ -218,6 +211,7 @@ class BagTest {
         assertNotEquals(new Bag(blueberry, 13).getTotalPrice(),null);
     }
 
+
     private static Arguments makeArguments(Bagel.Type type, int quantity, BigDecimal price) {
         return Arguments.of(new Bag(new Bagel(type), quantity), price);
     }
@@ -230,40 +224,19 @@ class BagTest {
                 throws Exception {
             old.markDown();
             return Stream.of(
-                    makeArguments(Type.PLAIN, 3, BigDecimal.valueOf(1.50)),
-                    makeArguments(Type.PLAIN, 6, BigDecimal.valueOf(2.85)),
-                    makeArguments(Type.PLAIN, 13, BigDecimal.valueOf(5.70)),
-                    makeArguments(Type.ASIAGO, 3, BigDecimal.valueOf(2.10)),
-                    makeArguments(Type.ASIAGO, 6, BigDecimal.valueOf(3.99)),
-                    makeArguments(Type.ASIAGO, 13, BigDecimal.valueOf(7.98)),
-                    Arguments.of(new Bag(old, 3), 1.05),
-                    Arguments.of(new Bag(old, 6), 2.00),
-                    Arguments.of(new Bag(old, 13), 3.99));
-        }// end stream
-
-    }// end BagArgumentsProvider_getTotalPrice
+                    makeArguments(Type.PLAIN, 3, new BigDecimal("1.50")),
+                    makeArguments(Type.PLAIN, 6, new BigDecimal("2.85")),
+                    makeArguments(Type.PLAIN, 13, new BigDecimal("6.00")),
+                    makeArguments(Type.ASIAGO, 3, new BigDecimal("2.10")),
+                    makeArguments(Type.ASIAGO, 6, new BigDecimal("3.99")),
+                    makeArguments(Type.ASIAGO, 13, new BigDecimal("8.40")),
+                    Arguments.of(new Bag(old, 3), new BigDecimal("1.05")),
+                    Arguments.of(new Bag(old, 6), new BigDecimal("1.99")),
+                    Arguments.of(new Bag(old, 13), new BigDecimal("4.20")));
+        }
+    }
 
     static class BagArgumentsProvider_getPerBagelPriceOFG implements ArgumentsProvider {
-
-        @Override
-        public Stream<? extends Arguments> provideArguments(ExtensionContext arg0)
-                throws Exception {
-            // TODO Auto-generated method stub
-            return Stream.of(
-                    Arguments.of(new Bagel(Type.PLAIN), BigDecimal.valueOf(.5)),
-                    Arguments.of(new Bagel(Type.POPPY_SEED), BigDecimal.valueOf(.5)),
-                    Arguments.of(new Bagel(Type.SESAME_SEED), BigDecimal.valueOf(.5)),
-                    Arguments.of(new Bagel(Type.ONION), BigDecimal.valueOf(.5)),
-                    Arguments.of(new Bagel(Type.EVERYTHING), BigDecimal.valueOf(.5)),
-                    Arguments.of(new Bagel(Type.ASIAGO), BigDecimal.valueOf(.7)),
-                    Arguments.of(new Bagel(Type.BLUEBERRY), BigDecimal.valueOf(.7)),
-                    Arguments.of(new Bagel(Type.CINNAMON_RAISIN), BigDecimal.valueOf(.7)),
-                    Arguments.of(new Bagel(Type.SUN_DRIED_TOMATO), BigDecimal.valueOf(.7)));
-        }
-
-    }// end BagArgumentsProvider_getPerBagelPrice
-
-    static class BagArgumentsProvider_getPerBagelPriceOld implements ArgumentsProvider {
         Bagel plain = new Bagel(Type.PLAIN);
         Bagel poppySeed = new Bagel(Type.POPPY_SEED);
         Bagel sesameSeed = new Bagel(Type.SESAME_SEED);
@@ -273,7 +246,6 @@ class BagTest {
         Bagel blueberry = new Bagel(Type.BLUEBERRY);
         Bagel cinnamonRaisin = new Bagel(Type.CINNAMON_RAISIN);
         Bagel sunDriedTomato = new Bagel(Type.SUN_DRIED_TOMATO);
-
         @Override
         public Stream<? extends Arguments> provideArguments(ExtensionContext arg0)
                 throws Exception {
@@ -287,17 +259,24 @@ class BagTest {
             cinnamonRaisin.markDown();
             sunDriedTomato.markDown();
             return Stream.of(
-                    Arguments.of(plain, BigDecimal.valueOf(.35)),
-                    Arguments.of(poppySeed, BigDecimal.valueOf(.35)),
-                    Arguments.of(sesameSeed, BigDecimal.valueOf(.35)),
-                    Arguments.of(onion, BigDecimal.valueOf(.35)),
-                    Arguments.of(everything, BigDecimal.valueOf(.35)),
-                    Arguments.of(asiago, BigDecimal.valueOf(.35)),
-                    Arguments.of(blueberry, BigDecimal.valueOf(.35)),
-                    Arguments.of(cinnamonRaisin, BigDecimal.valueOf(.35)),
-                    Arguments.of(sunDriedTomato, BigDecimal.valueOf(.35)));
+                    makeArguments(Type.PLAIN, 1, new BigDecimal(".50")),
+                    makeArguments(Type.POPPY_SEED, 1, new BigDecimal(".50")),
+                    makeArguments(Type.SESAME_SEED, 1, new BigDecimal(".50")),
+                    makeArguments(Type.ONION, 1, new BigDecimal(".50")),
+                    makeArguments(Type.EVERYTHING, 1, new BigDecimal(".50")),
+                    makeArguments(Type.ASIAGO, 1, new BigDecimal(".70")),
+                    makeArguments(Type.BLUEBERRY, 1, new BigDecimal(".70")),
+                    makeArguments(Type.CINNAMON_RAISIN, 1, new BigDecimal(".70")),
+                    makeArguments(Type.SUN_DRIED_TOMATO, 1, new BigDecimal(".70")),
+                    Arguments.of(new Bag(plain, 1), BigDecimal.valueOf(.35)),
+                    Arguments.of(new Bag(poppySeed,1), BigDecimal.valueOf(.35)),
+                    Arguments.of(new Bag(sesameSeed,1), BigDecimal.valueOf(.35)),
+                    Arguments.of(new Bag(onion,1), BigDecimal.valueOf(.35)),
+                    Arguments.of(new Bag(everything,1), BigDecimal.valueOf(.35)),
+                    Arguments.of(new Bag(asiago,1), BigDecimal.valueOf(.35)),
+                    Arguments.of(new Bag(blueberry,1), BigDecimal.valueOf(.35)),
+                    Arguments.of(new Bag(cinnamonRaisin,1), BigDecimal.valueOf(.35)),
+                    Arguments.of(new Bag(sunDriedTomato,1), BigDecimal.valueOf(.35)));
         }
-
-    }// end BagArgumentsProvider_getPerBagelPrice
-
-}// end BagTest class
+    }
+}

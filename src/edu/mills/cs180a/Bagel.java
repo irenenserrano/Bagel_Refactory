@@ -12,9 +12,9 @@ public class Bagel {
     private final Type type;
     private Category currentCategory;
     // Visible for Testing
-    protected static final BigDecimal OLD_FASHIONED_PRICE = BigDecimal.valueOf(0.5);
-    protected static final BigDecimal GOURMET_PRICE = BigDecimal.valueOf(0.7);
-    protected static final BigDecimal DAY_OLD_PRICE = BigDecimal.valueOf(0.35);
+    protected static final BigDecimal OLD_FASHIONED_PRICE = new BigDecimal("0.50");
+    protected static final BigDecimal GOURMET_PRICE = new BigDecimal("0.70");
+    protected static final BigDecimal DAY_OLD_PRICE = new BigDecimal("0.35");
 
 
     enum Type {

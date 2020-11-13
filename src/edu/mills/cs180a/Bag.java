@@ -1,6 +1,8 @@
 package edu.mills.cs180a;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
@@ -15,9 +17,8 @@ public class Bag {
 
     // If the Baker's Dozen discount doesn't apply, we give a percentage discount.
     private static final int BULK_DISCOUNT_MINIMUM = 6;
-    private static final BigDecimal BULK_DISCOUNT_PERCENTAGE = BigDecimal.valueOf(.05);
-    private static final BigDecimal BULK_DISCOUNT_MULTIPLIER =
-            BigDecimal.valueOf(1).subtract(BULK_DISCOUNT_PERCENTAGE);
+    private static final BigDecimal BULK_DISCOUNT_PERCENTAGE = new BigDecimal(".05");
+    private static final BigDecimal BULK_DISCOUNT_MULTIPLIER = new BigDecimal("1.00").subtract(BULK_DISCOUNT_PERCENTAGE);
 
     private final Bagel bagel;
     private final int quantity;
@@ -36,7 +37,7 @@ public class Bag {
             throw new IllegalArgumentException("Orders must be under 13 bagels");
         }
 
-        if (this.getQuantity() < 1) {
+        if (this.quantity < 1) {
             throw new IllegalArgumentException("Not a valid order");
         }
 
@@ -67,13 +68,14 @@ public class Bag {
      * @return the total price
      */
     public BigDecimal getTotalPrice() {
-        BigDecimal undiscountedPrice = getPerBagelPrice().multiply(BigDecimal.valueOf(quantity));
+        BigDecimal undiscountedPrice = getPerBagelPrice().multiply(new BigDecimal(quantity));
         if (quantity == BUY_ONE_GET_ONE_FREE_QUANTITY) {
             return undiscountedPrice.subtract(getPerBagelPrice());
         }
-        if (quantity >= BULK_DISCOUNT_MINIMUM) {
-            return undiscountedPrice.multiply(BULK_DISCOUNT_MULTIPLIER);
+        if (quantity >= BULK_DISCOUNT_MINIMUM && quantity != 13) {
+            return undiscountedPrice.multiply(BULK_DISCOUNT_MULTIPLIER, new MathContext(3, RoundingMode.HALF_DOWN));
         }
+
         return undiscountedPrice;
     }// end getTotalPrice
 

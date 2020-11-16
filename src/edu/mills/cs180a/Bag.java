@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Objects;
+import edu.mills.cs180a.Bagel.Type;
 
 /**
  * A bag of any quantity of a single type of bagel.
@@ -11,14 +12,15 @@ import java.util.Objects;
  * @author Ellen Spertus
  *
  */
-public class Bag {
+public class Bag implements Comparable<Bag> {
     // We provide a Baker's Dozen: 13 bagels for the price of 12.
     private static final int BUY_ONE_GET_ONE_FREE_QUANTITY = 13;
 
     // If the Baker's Dozen discount doesn't apply, we give a percentage discount.
     private static final int BULK_DISCOUNT_MINIMUM = 6;
     private static final BigDecimal BULK_DISCOUNT_PERCENTAGE = new BigDecimal(".05");
-    private static final BigDecimal BULK_DISCOUNT_MULTIPLIER = new BigDecimal("1.00").subtract(BULK_DISCOUNT_PERCENTAGE);
+    private static final BigDecimal BULK_DISCOUNT_MULTIPLIER =
+            new BigDecimal("1.00").subtract(BULK_DISCOUNT_PERCENTAGE);
 
     private final Bagel bagel;
     private final int quantity;
@@ -73,7 +75,8 @@ public class Bag {
             return undiscountedPrice.subtract(getPerBagelPrice());
         }
         if (quantity >= BULK_DISCOUNT_MINIMUM && quantity != 13) {
-            return undiscountedPrice.multiply(BULK_DISCOUNT_MULTIPLIER, new MathContext(3, RoundingMode.HALF_DOWN));
+            return undiscountedPrice.multiply(BULK_DISCOUNT_MULTIPLIER,
+                    new MathContext(3, RoundingMode.HALF_DOWN));
         }
 
         return undiscountedPrice;
@@ -99,20 +102,34 @@ public class Bag {
         if (!(object instanceof Bag))
             return false;
 
-        Bagel bagel = ((Bag) object).getBagel();
-        BigDecimal singlePrice = ((Bag) object).getPerBagelPrice();
-        int amount = ((Bag) object).getQuantity();
-        BigDecimal totalPrice = ((Bag) object).getTotalPrice();
+        Bag bag = (Bag) object;
+        Type bagelType = bag.getBagel().getType();
+        BigDecimal singlePrice = bag.getPerBagelPrice();
+        int amount = bag.getQuantity();
+        BigDecimal totalPrice = bag.getTotalPrice();
 
-        if (bagel.equals(this.getBagel()) && singlePrice == this.getPerBagelPrice()
-                && amount == this.getQuantity() && totalPrice == this.getTotalPrice())
+        if (bagelType.equals(this.bagel.getType()) && singlePrice.equals(getPerBagelPrice())
+                && amount == this.quantity && totalPrice.equals(this.getTotalPrice())) {
             return true;
+        }
         return false;
     }// end equals
 
     @Override
     public int hashCode() {
-        return Objects.hash(getBagel(), getQuantity());
+        return Objects.hash(bagel, quantity, getPerBagelPrice(), getTotalPrice());
+    }
+
+    @Override
+    public int compareTo(Bag bag) {
+        Type bagelType = bag.getBagel().getType();
+        BigDecimal pricePer = bag.getPerBagelPrice();
+        Integer amount = (Integer)bag.getQuantity();
+        BigDecimal totalPrice = bag.getTotalPrice();
+
+        return (bagelType.compareTo(this.bagel.getType()) + pricePer.compareTo(getPerBagelPrice())
+        + amount.compareTo((Integer)this.quantity) + totalPrice.compareTo(getTotalPrice()));
+
     }
 }// end class
 

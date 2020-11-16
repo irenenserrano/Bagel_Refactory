@@ -20,7 +20,7 @@ public class Bagel {
     enum Type {
         PLAIN("plain", Category.OLD_FASHIONED), POPPY_SEED("poppy seed",
                 Category.OLD_FASHIONED), SESAME_SEED("sesame seed", Category.OLD_FASHIONED), ONION(
-                        "onion", Category.OLD_FASHIONED), EVERYTHING("everthing",
+                        "onion", Category.OLD_FASHIONED), EVERYTHING("everything",
                                 Category.OLD_FASHIONED), ASIAGO("asiago",
                                         Category.GOURMET), BLUEBERRY("blueberry",
                                                 Category.GOURMET), CINNAMON_RAISIN(
@@ -113,7 +113,7 @@ public class Bagel {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.type, getCategory());
+        return Objects.hash(this.type, this.currentCategory);
     }
 
 }// end class

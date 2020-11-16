@@ -2,6 +2,7 @@ package edu.mills.cs180a;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class Order {
     private List<Bag> bags;
 
     // constructor
-    private Order(Bag ...bags) {
+    private Order(Bag...bags) {
         this.bags = Arrays.asList(bags);
     }
 
@@ -23,7 +24,7 @@ public class Order {
      *
      * @param bags
      */
-    public static Order of(Bag... bagsOfBagels) {
+    public static Order of(Bag...bagsOfBagels) {
         return new Order(bagsOfBagels);
     }
 
@@ -68,6 +69,7 @@ public class Order {
         return s;
     }// end generateReciept
 
+
     @Override
     public String toString() {
         return bags.toString();
@@ -79,21 +81,11 @@ public class Order {
         if (!(object instanceof Order))
             return false;
 
-        String bagelType = ((Bag) object).getBagel().getType().toString();
-        String bagelCategory = ((Bag) object).getBagel().getCategory().toString();
-        BigDecimal singlePrice = ((Bag) object).getPerBagelPrice();
-        int amount = ((Bag) object).getQuantity();
-        BigDecimal totalPrice = ((Bag) object).getTotalPrice();
+        Order newOrder = (Order)object;
+        Collections.sort(bags);
+        Collections.sort(newOrder.bags);
 
-        for (Bag bag : bags) {
-            if (bagelType.equals(bag.getBagel().getType().toString())
-                    && bagelCategory.equals(bag.getBagel().getCategory().toString())
-                    && singlePrice == bag.getPerBagelPrice()
-                    && amount == bag.getQuantity() && totalPrice == bag.getTotalPrice())
-                return true;
-        }
-
-        return false;
+        return bags.equals(newOrder.bags);
     }
 
     @Override

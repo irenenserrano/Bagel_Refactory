@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.math.BigDecimal;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,29 +17,8 @@ class OrderTest {
 
     // testing an order of one bag, each category, each possible size
     @ParameterizedTest
-    @ArgumentsSource(OrderArgumentsProvider_OneBagEachCategory.class)
-    void getPrice_assertEquals_OneBag(Order order, BigDecimal cost) {
-        assertEquals(cost, order.getPrice());
-    }
-
-    // testing an order of two bags, all combinations, each size
-    @ParameterizedTest
-    @ArgumentsSource(OrderArgumentsProvider_TwoBags.class)
-    void getPrice_assertEquals_TwoBags(Order order, BigDecimal cost) {
-        assertEquals(cost, order.getPrice());
-    }
-
-    // testing an order of three bags, most combinations, each size
-    @ParameterizedTest
-    @ArgumentsSource(OrderArgumentsProvider_ThreeBags.class)
-    void getPrice_assertEquals_ThreeBags(Order order, BigDecimal cost) {
-        assertEquals(cost, order.getPrice());
-    }
-
-    // testing an order of any size bags, random choices
-    @ParameterizedTest
-    @ArgumentsSource(OrderArgumentsProvider_FourBags.class)
-    void getPrice_assertEquals_FourBags(Order order, BigDecimal cost) {
+    @ArgumentsSource(OrderArgumentsProvider_MultipleBagAmounts.class)
+    void getPrice_assertEquals_MultipleBagCombinations(Order order, BigDecimal cost) {
         assertEquals(cost, order.getPrice());
     }
 
@@ -82,151 +62,35 @@ class OrderTest {
 
     }
 
-    // Reflexive - all categories, 1-4 bags
-    void equals_True_SameBagSameTotalPrice() {
-        // Old Fashioned
-        assertEquals(makeOrder(BAG_PLAIN_3).getPrice(), makeOrder(BAG_PLAIN_3).getPrice());
-        assertEquals(makeOrder(BAG_PLAIN_3, BAG_ONION_3).getPrice(),
-                makeOrder(BAG_PLAIN_3, BAG_ONION_3).getPrice());
-        assertEquals(makeOrder(BAG_PLAIN_3, BAG_ONION_3, BAG_SESAME_3).getPrice(),
-                makeOrder(BAG_PLAIN_3, BAG_ONION_3, BAG_SESAME_3).getPrice());
-        assertEquals(makeOrder(BAG_PLAIN_3, BAG_ONION_3, BAG_SESAME_3, BAG_POPPY_3).getPrice(),
-                makeOrder(BAG_PLAIN_3, BAG_ONION_3, BAG_SESAME_3, BAG_POPPY_3).getPrice());
-
-        // Gourmet
-        assertEquals(makeOrder(BAG_ASIAGO_3).getPrice(), makeOrder(BAG_ASIAGO_3).getPrice());
-        assertEquals(makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3).getPrice(),
-                makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3).getPrice());
-        assertEquals(makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3, BAG_CINNAMON_3).getPrice(),
-                makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3, BAG_CINNAMON_3).getPrice());
-
-        // Day Old
-        assertEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(), makeOrder(BAG_OLDPLAIN_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3).getPrice(),
-                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3).getPrice(),
-                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3).getPrice());
-        assertEquals(
-                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3, BAG_OLDASIAGO_3)
-                .getPrice(),
-                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3, BAG_OLDASIAGO_3)
-                .getPrice());
+    @Test
+    void equals_True_SameSingleBag() {
+        assertEquals(makeOrder(BAG_PLAIN_3), makeOrder(BAG_PLAIN_3));
+        assertEquals(makeOrder(BAG_ONION_3), makeOrder(BAG_ONION_3));
+        assertEquals(makeOrder(BAG_ASIAGO_3), makeOrder(BAG_ASIAGO_3));
+        assertEquals(makeOrder(BAG_BLUEBERRY_3), makeOrder(BAG_BLUEBERRY_3));
+        assertEquals(makeOrder(BAG_OLDPLAIN_3), makeOrder(BAG_OLDPLAIN_3));
+        assertEquals(makeOrder(BAG_OLDTOMATO_3), makeOrder(BAG_OLDTOMATO_3));
     }
 
-    // Symmetric - all categories, all possible sizes
-    void equals_True_DiffBagSameTotalPrice() {
-        // Old Fashioned
-        assertEquals(makeOrder(BAG_PLAIN_3).getPrice(), makeOrder(BAG_ONION_3).getPrice());
-        assertEquals(makeOrder(BAG_ONION_3).getPrice(), makeOrder(BAG_PLAIN_3).getPrice());
-        assertEquals(makeOrder(BAG_PLAIN_3, BAG_ONION_3).getPrice(),
-                makeOrder(BAG_SESAME_3, BAG_POPPY_3).getPrice());
-        assertEquals(makeOrder(BAG_SESAME_3, BAG_POPPY_3).getPrice(),
-                makeOrder(BAG_PLAIN_3, BAG_ONION_3).getPrice());
-        assertEquals(makeOrder(BAG_SESAME_3, BAG_POPPY_3, BAG_PLAIN_3).getPrice(),
-                makeOrder(BAG_ONION_3).getPrice());
-        assertEquals(makeOrder(BAG_ONION_3).getPrice(),
-                makeOrder(BAG_SESAME_3, BAG_POPPY_3, BAG_PLAIN_3).getPrice());
-
-        // Gourmet
-        assertEquals(makeOrder(BAG_ASIAGO_3).getPrice(), makeOrder(BAG_BLUEBERRY_3).getPrice());
-        assertEquals(makeOrder(BAG_BLUEBERRY_3).getPrice(), makeOrder(BAG_ASIAGO_3).getPrice());
-        assertEquals(makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3).getPrice(),
-                makeOrder(BAG_CINNAMON_3).getPrice());
-        assertEquals(makeOrder(BAG_CINNAMON_3).getPrice(),
-                makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3).getPrice());
-
-        // Day Old
-        assertEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(), makeOrder(BAG_OLDTOMATO_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDTOMATO_3).getPrice(), makeOrder(BAG_OLDPLAIN_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3).getPrice(),
-                makeOrder(BAG_OLDEVERYTHING_3, BAG_OLDASIAGO_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDEVERYTHING_3, BAG_OLDASIAGO_3).getPrice(),
-                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3).getPrice(),
-                makeOrder(BAG_OLDASIAGO_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDASIAGO_3).getPrice(),
-                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3).getPrice());
+    @Test
+    void equals_True_SameBagsDiffOrder() {
+        System.out.println("SameBagsDiffOrder");
+        assertEquals(makeOrder(BAG_PLAIN_3, BAG_BLUEBERRY_3),
+                makeOrder(BAG_BLUEBERRY_3, BAG_PLAIN_3));
+        assertEquals(makeOrder(BAG_OLDTOMATO_3, BAG_CINNAMON_3, BAG_ONION_3),
+                makeOrder(BAG_CINNAMON_3, BAG_OLDTOMATO_3, BAG_ONION_3));
+        // assertEquals(makeOrder(BAG_POPPY_3, BAG_OLDEVERYTHING_3, BAG_SESAME_3),
+        // makeOrder(BAG_SESAME_3, BAG_OLDEVERYTHING_3, BAG_POPPY_3));
+        assertEquals(makeOrder(BAG_ASIAGO_3, BAG_CINNAMON_3, BAG_OLDPLAIN_3),
+                makeOrder(BAG_OLDPLAIN_3, BAG_ASIAGO_3, BAG_CINNAMON_3));
     }
 
-    // Transitive - all categories, all possible sizes
-    void equals_True_3DiffBagSameTotalPrice() {
-        // Old Fashioned
-        assertEquals(makeOrder(BAG_PLAIN_3).getPrice(), makeOrder(BAG_ONION_3).getPrice());
-        assertEquals(makeOrder(BAG_ONION_3).getPrice(), makeOrder(BAG_SESAME_3).getPrice());
-        assertEquals(makeOrder(BAG_PLAIN_3).getPrice(), makeOrder(BAG_SESAME_3).getPrice());
-        assertEquals(makeOrder(BAG_POPPY_3).getPrice(), makeOrder(BAG_SESAME_3).getPrice());
-        assertEquals(makeOrder(BAG_SESAME_3).getPrice(), makeOrder(BAG_PLAIN_3).getPrice());
-        assertEquals(makeOrder(BAG_POPPY_3).getPrice(), makeOrder(BAG_PLAIN_3).getPrice());
-
-        // Gourmet
-        assertEquals(makeOrder(BAG_ASIAGO_3).getPrice(), makeOrder(BAG_BLUEBERRY_3).getPrice());
-        assertEquals(makeOrder(BAG_BLUEBERRY_3).getPrice(), makeOrder(BAG_CINNAMON_3).getPrice());
-        assertEquals(makeOrder(BAG_ASIAGO_3).getPrice(), makeOrder(BAG_CINNAMON_3).getPrice());
-
-        // Day Old
-        assertEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(), makeOrder(BAG_OLDTOMATO_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDTOMATO_3).getPrice(),
-                makeOrder(BAG_OLDEVERYTHING_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(),
-                makeOrder(BAG_OLDEVERYTHING_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(), makeOrder(BAG_OLDASIAGO_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDASIAGO_3).getPrice(), makeOrder(BAG_OLDTOMATO_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(), makeOrder(BAG_OLDTOMATO_3).getPrice());
-    }
-
-    // Consistent - all categories, all possible sizes
-    void equals_True_DiffBagSameTotalPriceLater() {
-        // Old Fashioned
-        assertEquals(makeOrder(BAG_PLAIN_3).getPrice(), makeOrder(BAG_ONION_3).getPrice());
-        assertEquals(makeOrder(BAG_ONION_3).getPrice(), makeOrder(BAG_PLAIN_3).getPrice());
-        assertEquals(makeOrder(BAG_PLAIN_3, BAG_ONION_3).getPrice(),
-                makeOrder(BAG_SESAME_3, BAG_POPPY_3).getPrice());
-        assertEquals(makeOrder(BAG_SESAME_3, BAG_POPPY_3).getPrice(),
-                makeOrder(BAG_PLAIN_3, BAG_ONION_3).getPrice());
-        assertEquals(makeOrder(BAG_SESAME_3, BAG_POPPY_3, BAG_PLAIN_3).getPrice(),
-                makeOrder(BAG_ONION_3).getPrice());
-        assertEquals(makeOrder(BAG_ONION_3).getPrice(),
-                makeOrder(BAG_SESAME_3, BAG_POPPY_3, BAG_PLAIN_3).getPrice());
-
-        // Gourmet
-        assertEquals(makeOrder(BAG_ASIAGO_3).getPrice(), makeOrder(BAG_BLUEBERRY_3).getPrice());
-        assertEquals(makeOrder(BAG_BLUEBERRY_3).getPrice(), makeOrder(BAG_ASIAGO_3).getPrice());
-        assertEquals(makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3).getPrice(),
-                makeOrder(BAG_CINNAMON_3).getPrice());
-        assertEquals(makeOrder(BAG_CINNAMON_3).getPrice(),
-                makeOrder(BAG_ASIAGO_3, BAG_BLUEBERRY_3).getPrice());
-
-        // Day Old
-        assertEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(), makeOrder(BAG_OLDTOMATO_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDTOMATO_3).getPrice(), makeOrder(BAG_OLDPLAIN_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3).getPrice(),
-                makeOrder(BAG_OLDEVERYTHING_3, BAG_OLDASIAGO_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDEVERYTHING_3, BAG_OLDASIAGO_3).getPrice(),
-                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3).getPrice(),
-                makeOrder(BAG_OLDASIAGO_3).getPrice());
-        assertEquals(makeOrder(BAG_OLDASIAGO_3).getPrice(),
-                makeOrder(BAG_OLDPLAIN_3, BAG_OLDTOMATO_3, BAG_OLDEVERYTHING_3).getPrice());
-    }
-
-    // Not Null - all categories, all possible sizes
-    void equals_False_Null() {
-        // Old Fashioned
-        assertNotEquals(makeOrder(BAG_PLAIN_3).getPrice(), makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(BAG_ONION_3).getPrice(), makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(BAG_SESAME_3).getPrice(), makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(BAG_POPPY_3).getPrice(), makeOrder(null).getPrice());
-
-        // Gourmet
-        assertNotEquals(makeOrder(BAG_ASIAGO_3).getPrice(), makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(BAG_BLUEBERRY_3).getPrice(), makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(BAG_CINNAMON_3).getPrice(), makeOrder(null).getPrice());
-
-        // Day Old
-        assertNotEquals(makeOrder(BAG_OLDPLAIN_3).getPrice(), makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(BAG_OLDTOMATO_3).getPrice(), makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(BAG_OLDEVERYTHING_3).getPrice(), makeOrder(null).getPrice());
-        assertNotEquals(makeOrder(BAG_OLDASIAGO_3).getPrice(), makeOrder(null).getPrice());
+    @Test
+    void equals_False_SameBagelDiffAmount() {
+        assertNotEquals(makeOrder(BAG_PLAIN_3), makeOrder(makeBag(Type.PLAIN, 4)));
+        assertNotEquals(makeOrder(BAG_CINNAMON_3), makeOrder(makeBag(Type.CINNAMON_RAISIN,5)));
+        assertNotEquals(makeOrder(BAG_POPPY_3, BAG_OLDEVERYTHING_3), makeOrder(makeBag(Type.POPPY_SEED, 4), BAG_OLDEVERYTHING_3));
+        assertNotEquals(makeOrder(BAG_SESAME_3, BAG_OLDASIAGO_3), makeOrder(BAG_OLDASIAGO_3, makeBag(Type.SESAME_SEED, 12)));
     }
 
     private static Bag makeBag(Bagel.Type type, int quantity) {
@@ -237,7 +101,7 @@ class OrderTest {
         return Order.of(bags);
     }// end makeOrderArguments
 
-    static class OrderArgumentsProvider_OneBagEachCategory implements ArgumentsProvider {
+    static class OrderArgumentsProvider_MultipleBagAmounts implements ArgumentsProvider {
         Bagel blueberry = new Bagel(Type.BLUEBERRY);
         Bag bag3old = new Bag(blueberry, 3);
         Bag bag6old = new Bag(blueberry, 6);
@@ -256,30 +120,15 @@ class OrderTest {
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 13)), new BigDecimal("8.40")),
                     Arguments.of(makeOrder(bag3old), new BigDecimal("1.05")),
                     Arguments.of(makeOrder(bag6old), new BigDecimal("1.99")),
-                    Arguments.of(makeOrder(bag13old), new BigDecimal("4.20")));
-        }// end stream
-    }// end OneBagEachCategory
-
-    static class OrderArgumentsProvider_TwoBags implements ArgumentsProvider {
-        Bagel blueberry = new Bagel(Type.BLUEBERRY);
-
-        @Override
-        public Stream<? extends Arguments> provideArguments(ExtensionContext arg0)
-                throws Exception {
-            blueberry.markDown();
-            return Stream.of(
+                    Arguments.of(makeOrder(bag13old), new BigDecimal("4.20")),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 3)),
                             new BigDecimal("3.60")),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), new Bag(blueberry, 3)),
                             new BigDecimal("2.55")),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), new Bag(blueberry, 3)),
                             new BigDecimal("3.15")),
-                    Arguments.of(makeOrder(makeBag(Type.PLAIN, 6), makeBag(Type.ASIAGO, 6)),
-                            new BigDecimal("6.84")),
-                    Arguments.of(makeOrder(makeBag(Type.PLAIN, 6), new Bag(blueberry, 6)),
-                            new BigDecimal("4.84")),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 6), new Bag(blueberry, 6)),
-                            new BigDecimal("6.30")),
+                            new BigDecimal("5.98")),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 13), makeBag(Type.ASIAGO, 13)),
                             new BigDecimal("14.40")),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 13), new Bag(blueberry, 13)),
@@ -287,11 +136,9 @@ class OrderTest {
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 13), new Bag(blueberry, 13)),
                             new BigDecimal("12.60")),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 6)),
-                            new BigDecimal("5.70")),
-                    Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 13)),
-                            new BigDecimal("10.50")),
+                            new BigDecimal("5.49")),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), new Bag(blueberry, 6)),
-                            new BigDecimal("3.50")),
+                            new BigDecimal("3.49")),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), new Bag(blueberry, 13)),
                             new BigDecimal("5.70")),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), makeBag(Type.PLAIN, 6)),
@@ -299,7 +146,7 @@ class OrderTest {
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), makeBag(Type.PLAIN, 13)),
                             new BigDecimal("8.10")),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), new Bag(blueberry, 6)),
-                            new BigDecimal("4.10")),
+                            new BigDecimal("4.09")),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), new Bag(blueberry, 13)),
                             new BigDecimal("6.30")),
                     Arguments.of(makeOrder(new Bag(blueberry, 3), makeBag(Type.PLAIN, 6)),
@@ -309,58 +156,17 @@ class OrderTest {
                     Arguments.of(makeOrder(new Bag(blueberry, 3), makeBag(Type.ASIAGO, 6)),
                             new BigDecimal("5.04")),
                     Arguments.of(makeOrder(new Bag(blueberry, 3), makeBag(Type.ASIAGO, 13)),
-                            new BigDecimal("9.45")));
-
-        }// end stream
-    }// end TwoBags
-
-    static class OrderArgumentsProvider_ThreeBags implements ArgumentsProvider {
-        Bagel blueberry = new Bagel(Type.BLUEBERRY);
-
-        @Override
-        public Stream<? extends Arguments> provideArguments(ExtensionContext arg0)
-                throws Exception {
-            blueberry.markDown();
-            return Stream.of(
-                    Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 3),
-                            new Bag(blueberry, 3)), BigDecimal.valueOf(4.65)),
-                    Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 3),
-                            new Bag(blueberry, 6)), BigDecimal.valueOf(5.60)),
-                    Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 6),
-                            new Bag(blueberry, 6)), BigDecimal.valueOf(7.49)),
-                    Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 6),
-                            new Bag(blueberry, 13)), BigDecimal.valueOf(9.48)),
-                    Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 13),
-                            new Bag(blueberry, 13)), BigDecimal.valueOf(13.47)),
+                            new BigDecimal("9.45")),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 6), makeBag(Type.ASIAGO, 13),
-                            new Bag(blueberry, 13)), BigDecimal.valueOf(14.82)),
+                            new Bag(blueberry, 13)), new BigDecimal("15.45")),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 13), makeBag(Type.ASIAGO, 13),
-                            new Bag(blueberry, 13)), BigDecimal.valueOf(17.67)),
-                    Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), makeBag(Type.PLAIN, 6),
-                            new Bag(blueberry, 6)), BigDecimal.valueOf(6.95)),
-                    Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), makeBag(Type.PLAIN, 6),
-                            new Bag(blueberry, 13)), BigDecimal.valueOf(8.94)),
-                    Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), makeBag(Type.PLAIN, 13),
-                            new Bag(blueberry, 13)), BigDecimal.valueOf(11.79)),
-                    Arguments.of(makeOrder(makeBag(Type.ASIAGO, 6), makeBag(Type.PLAIN, 13),
-                            new Bag(blueberry, 13)), BigDecimal.valueOf(12.54)),
+                            new Bag(blueberry, 13)), new BigDecimal("18.60")),
                     Arguments.of(makeOrder(new Bag(blueberry, 3), makeBag(Type.PLAIN, 6),
-                            makeBag(Type.ASIAGO, 6)), BigDecimal.valueOf(7.89)),
+                            makeBag(Type.ASIAGO, 6)), new BigDecimal("7.89")),
                     Arguments.of(makeOrder(new Bag(blueberry, 3), makeBag(Type.PLAIN, 6),
-                            makeBag(Type.ASIAGO, 13)), BigDecimal.valueOf(11.88)),
+                            makeBag(Type.ASIAGO, 13)), new BigDecimal("12.30")),
                     Arguments.of(makeOrder(new Bag(blueberry, 6), makeBag(Type.PLAIN, 13),
-                            makeBag(Type.ASIAGO, 13)), BigDecimal.valueOf(14.73)));
-        }// end stream
-    }// end ThreeBags
-
-    static class OrderArgumentsProvider_FourBags implements ArgumentsProvider {
-        Bagel blueberry = new Bagel(Type.BLUEBERRY);
-
-        @Override
-        public Stream<? extends Arguments> provideArguments(ExtensionContext arg0)
-                throws Exception {
-            blueberry.markDown();
-            return Stream.of(
+                            makeBag(Type.ASIAGO, 13)), new BigDecimal("16.39")),
                     Arguments.of(
                             makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 6),
                                     new Bag(blueberry, 3), makeBag(Type.SUN_DRIED_TOMATO, 3)),
@@ -378,5 +184,5 @@ class OrderTest {
                                     new Bag(blueberry, 6), makeBag(Type.SUN_DRIED_TOMATO, 6)),
                             new BigDecimal("12.82")));
         }// end stream
-    }// end FourBags
-}// end OrderTest
+    }// end OneBagEachCategory
+}

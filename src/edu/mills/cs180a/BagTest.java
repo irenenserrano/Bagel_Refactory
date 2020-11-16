@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.math.BigDecimal;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -27,190 +28,98 @@ class BagTest {
         assertEquals(cost, bag.getPerBagelPrice());
     }
 
+    // creates a new bag object
     private static Bag makeBag(Bagel.Type type, int quantity) {
         return new Bag(new Bagel(type), quantity);
-    }// end makeBagArguments
-
-    // equals - Reflexive, all three categories, all the possible sizes
-    void equals_True_SameBagelSameTotalPrice() {
-        // Old Fashioned
-        assertEquals(makeBag(Type.PLAIN, 3).getTotalPrice(),
-                makeBag(Type.PLAIN, 3).getTotalPrice());
-        assertEquals(makeBag(Type.PLAIN, 6).getTotalPrice(),
-                makeBag(Type.PLAIN, 6).getTotalPrice());
-        assertEquals(makeBag(Type.PLAIN, 13).getTotalPrice(),
-                makeBag(Type.PLAIN, 13).getTotalPrice());
-
-        // Gourmet
-        assertEquals(makeBag(Type.ASIAGO, 3).getTotalPrice(),
-                makeBag(Type.ASIAGO, 3).getTotalPrice());
-        assertEquals(makeBag(Type.ASIAGO, 6).getTotalPrice(),
-                makeBag(Type.ASIAGO, 6).getTotalPrice());
-        assertEquals(makeBag(Type.ASIAGO, 13).getTotalPrice(),
-                makeBag(Type.ASIAGO, 13).getTotalPrice());
-
-        // Day Old
-        Bagel blueberry = new Bagel(Type.BLUEBERRY);
-        blueberry.markDown();
-        assertEquals(new Bag(blueberry, 3).getTotalPrice(), new Bag(blueberry, 3).getTotalPrice());
-        assertEquals(new Bag(blueberry, 6).getTotalPrice(), new Bag(blueberry, 6).getTotalPrice());
-        assertEquals(new Bag(blueberry, 13).getTotalPrice(),
-                new Bag(blueberry, 13).getTotalPrice());
-    }// end SameBagelAmountPrice
-
-    // equals - Symmetric, all three categories,the possible sizes
-    void equals_True_DiffBagelSameTotalPrice() {
-        // Old Fashioned
-        assertEquals(makeBag(Type.PLAIN, 3).getTotalPrice(),
-                makeBag(Type.ONION, 3).getTotalPrice());
-        assertEquals(makeBag(Type.ONION, 3).getTotalPrice(),
-                makeBag(Type.PLAIN, 3).getTotalPrice());
-        assertEquals(makeBag(Type.PLAIN, 6).getTotalPrice(),
-                makeBag(Type.ONION, 6).getTotalPrice());
-        assertEquals(makeBag(Type.ONION, 6).getTotalPrice(),
-                makeBag(Type.PLAIN, 6).getTotalPrice());
-        assertEquals(makeBag(Type.PLAIN, 13).getTotalPrice(),
-                makeBag(Type.ONION, 13).getTotalPrice());
-        assertEquals(makeBag(Type.ONION, 13).getTotalPrice(),
-                makeBag(Type.PLAIN, 13).getTotalPrice());
-
-
-        // Gourmet
-        assertEquals(makeBag(Type.ASIAGO, 3).getTotalPrice(),
-                makeBag(Type.BLUEBERRY, 3).getTotalPrice());
-        assertEquals(makeBag(Type.BLUEBERRY, 3).getTotalPrice(),
-                makeBag(Type.ASIAGO, 3).getTotalPrice());
-        assertEquals(makeBag(Type.ASIAGO, 6).getTotalPrice(),
-                makeBag(Type.BLUEBERRY, 6).getTotalPrice());
-        assertEquals(makeBag(Type.BLUEBERRY, 6).getTotalPrice(),
-                makeBag(Type.ASIAGO, 6).getTotalPrice());
-        assertEquals(makeBag(Type.ASIAGO, 13).getTotalPrice(),
-                makeBag(Type.BLUEBERRY, 13).getTotalPrice());
-        assertEquals(makeBag(Type.BLUEBERRY, 13).getTotalPrice(),
-                makeBag(Type.ASIAGO, 13).getTotalPrice());
-
-        // Day Old
-        Bagel onion = new Bagel(Type.ONION);
-        onion.markDown();
-        Bagel tomato = new Bagel(Type.SUN_DRIED_TOMATO);
-        tomato.markDown();
-        assertEquals(new Bag(onion, 3).getTotalPrice(), new Bag(tomato, 3).getTotalPrice());
-        assertEquals(new Bag(tomato, 3).getTotalPrice(), new Bag(onion, 3).getTotalPrice());
-        assertEquals(new Bag(onion, 6).getTotalPrice(), new Bag(tomato, 6).getTotalPrice());
-        assertEquals(new Bag(tomato, 6).getTotalPrice(), new Bag(onion, 6).getTotalPrice());
-        assertEquals(new Bag(onion, 13).getTotalPrice(), new Bag(tomato, 13).getTotalPrice());
-        assertEquals(new Bag(tomato, 13).getTotalPrice(), new Bag(onion, 13).getTotalPrice());
     }
 
-    // equals - Transitive, all three categories, all the possible sizes
-    void equals_True_3DiffBagelSameTotalPrice() {
+    @Test
+    void equals_True_SameBagelSameAmount() {
         // Old Fashioned
-        assertEquals(makeBag(Type.PLAIN, 3).getTotalPrice(),
-                makeBag(Type.ONION, 3).getTotalPrice());
-        assertEquals(makeBag(Type.ONION, 3).getTotalPrice(),
-                makeBag(Type.EVERYTHING, 3).getTotalPrice());
-        assertEquals(makeBag(Type.PLAIN, 3).getTotalPrice(),
-                makeBag(Type.EVERYTHING, 3).getTotalPrice());
-        assertEquals(makeBag(Type.PLAIN, 6).getTotalPrice(),
-                makeBag(Type.ONION, 6).getTotalPrice());
-        assertEquals(makeBag(Type.ONION, 6).getTotalPrice(),
-                makeBag(Type.EVERYTHING, 6).getTotalPrice());
-        assertEquals(makeBag(Type.PLAIN, 6).getTotalPrice(),
-                makeBag(Type.EVERYTHING, 6).getTotalPrice());
-        assertEquals(makeBag(Type.PLAIN, 13).getTotalPrice(),
-                makeBag(Type.ONION, 13).getTotalPrice());
-        assertEquals(makeBag(Type.ONION, 13).getTotalPrice(),
-                makeBag(Type.EVERYTHING, 13).getTotalPrice());
-        assertEquals(makeBag(Type.PLAIN, 13).getTotalPrice(),
-                makeBag(Type.EVERYTHING, 13).getTotalPrice());
+        assertEquals(makeBag(Type.PLAIN,3), makeBag(Type.PLAIN,3));
+        assertEquals(makeBag(Type.PLAIN,6), makeBag(Type.PLAIN,6));
+        assertEquals(makeBag(Type.PLAIN,13),makeBag(Type.PLAIN,13));
 
         // Gourmet
-        assertEquals(makeBag(Type.ASIAGO, 3).getTotalPrice(),
-                makeBag(Type.BLUEBERRY, 3).getTotalPrice());
-        assertEquals(makeBag(Type.BLUEBERRY, 3).getTotalPrice(),
-                makeBag(Type.CINNAMON_RAISIN, 3).getTotalPrice());
-        assertEquals(makeBag(Type.ASIAGO, 3).getTotalPrice(),
-                makeBag(Type.CINNAMON_RAISIN, 3).getTotalPrice());
-        assertEquals(makeBag(Type.ASIAGO, 6).getTotalPrice(),
-                makeBag(Type.BLUEBERRY, 6).getTotalPrice());
-        assertEquals(makeBag(Type.BLUEBERRY, 6).getTotalPrice(),
-                makeBag(Type.CINNAMON_RAISIN, 6).getTotalPrice());
-        assertEquals(makeBag(Type.ASIAGO, 6).getTotalPrice(),
-                makeBag(Type.CINNAMON_RAISIN, 6).getTotalPrice());
-        assertEquals(makeBag(Type.ASIAGO, 13).getTotalPrice(),
-                makeBag(Type.BLUEBERRY, 13).getTotalPrice());
-        assertEquals(makeBag(Type.BLUEBERRY, 13).getTotalPrice(),
-                makeBag(Type.CINNAMON_RAISIN, 13).getTotalPrice());
-        assertEquals(makeBag(Type.ASIAGO, 13).getTotalPrice(),
-                makeBag(Type.CINNAMON_RAISIN, 13).getTotalPrice());
+        assertEquals(makeBag(Type.ASIAGO,3), makeBag(Type.ASIAGO,3));
+        assertEquals(makeBag(Type.ASIAGO,6), makeBag(Type.ASIAGO,6));
+        assertEquals(makeBag(Type.ASIAGO,13),makeBag(Type.ASIAGO,13));
 
         // Day Old
+        Bagel old = new Bagel(Type.BLUEBERRY);
+        old.markDown();
+        assertEquals(new Bag(old,3), new Bag(old,3));
+        assertEquals(new Bag(old,6), new Bag(old,6));
+        assertEquals(new Bag(old,13),new Bag(old,13));
+    }
+
+    @Test
+    void equals_False_DiffBagelSameAmount() {
+        // Old Fashioned
+        assertNotEquals(makeBag(Type.PLAIN,3), makeBag(Type.ONION,3));
+        assertNotEquals(makeBag(Type.PLAIN,6), makeBag(Type.EVERYTHING,6));
+
+        // Gourmet
+        assertNotEquals(makeBag(Type.ASIAGO,3), makeBag(Type.BLUEBERRY, 3));
+        assertNotEquals(makeBag(Type.CINNAMON_RAISIN,6), makeBag(Type.SUN_DRIED_TOMATO,6));
+
+        // Day  Old
+        Bagel old1 = new Bagel(Type.BLUEBERRY);
+        old1.markDown();
+        Bagel old2 = new Bagel(Type.POPPY_SEED);
+        old2.markDown();
+        Bagel old3 = new Bagel(Type.ONION);
+        old3.markDown();
+        assertNotEquals(new Bag(old1,4), new Bag(old2,4));
+        assertNotEquals(new Bag(old2,13), new Bag(old3, 13));
+    }
+
+    @Test
+    void equals_False_SameBagelDiffAmount() {
+        // Old Fashioned
+        assertNotEquals(makeBag(Type.ONION,2), makeBag(Type.ONION,3));
+        assertNotEquals(makeBag(Type.POPPY_SEED,12), makeBag(Type.POPPY_SEED,13));
+
+        // Gourmet
+        assertNotEquals(makeBag(Type.SUN_DRIED_TOMATO,4), makeBag(Type.SUN_DRIED_TOMATO, 6));
+        assertNotEquals(makeBag(Type.CINNAMON_RAISIN, 12), makeBag(Type.CINNAMON_RAISIN, 13));
+
+        // Day Old
+        Bagel old1 = new Bagel(Type.EVERYTHING);
+        old1.markDown();
+        Bagel old2 = new Bagel(Type.ONION);
+        old2.markDown();
+        assertNotEquals(new Bag(old2, 3), new Bag(old2, 7));
+        assertNotEquals(new Bag(old1, 12), new Bag(old1, 13));
+
+    }
+
+    @Test
+    void equals_False_SameTypeMarkedDown() {
+        // Old Fashioned
         Bagel plain = new Bagel(Type.PLAIN);
         plain.markDown();
-        Bagel asiago = new Bagel(Type.ASIAGO);
-        asiago.markDown();
-        Bagel blueberry = new Bagel(Type.BLUEBERRY);
-        blueberry.markDown();
-
-        assertEquals(new Bag(plain, 3).getTotalPrice(), new Bag(asiago, 3).getTotalPrice());
-        assertEquals(new Bag(asiago, 3).getTotalPrice(), new Bag(blueberry, 3).getTotalPrice());
-        assertEquals(new Bag(plain, 3).getTotalPrice(), new Bag(blueberry, 3).getTotalPrice());
-        assertEquals(new Bag(plain, 6).getTotalPrice(), new Bag(asiago, 6).getTotalPrice());
-        assertEquals(new Bag(asiago, 6).getTotalPrice(), new Bag(blueberry, 6).getTotalPrice());
-        assertEquals(new Bag(plain, 6).getTotalPrice(), new Bag(blueberry, 6).getTotalPrice());
-        assertEquals(new Bag(plain, 13).getTotalPrice(), new Bag(asiago, 13).getTotalPrice());
-        assertEquals(new Bag(asiago, 13).getTotalPrice(), new Bag(blueberry, 13).getTotalPrice());
-        assertEquals(new Bag(plain, 13).getTotalPrice(), new Bag(blueberry, 13).getTotalPrice());
-    }
-
-    // equals - Consistent, all three categories, all the possible sizes
-    void equals_True_DiffBagelSameTotalPriceLater() {
-        // Old Fashioned
-        assertEquals(makeBag(Type.PLAIN, 3).getTotalPrice(),
-                makeBag(Type.ONION, 3).getTotalPrice());
-        assertEquals(makeBag(Type.PLAIN, 6).getTotalPrice(),
-                makeBag(Type.ONION, 6).getTotalPrice());
-        assertEquals(makeBag(Type.PLAIN, 13).getTotalPrice(),
-                makeBag(Type.ONION, 13).getTotalPrice());
+        assertNotEquals(makeBag(Type.PLAIN, 4), new Bag(plain,4));
 
         // Gourmet
-        assertEquals(makeBag(Type.ASIAGO, 3).getTotalPrice(),
-                makeBag(Type.BLUEBERRY, 3).getTotalPrice());
-        assertEquals(makeBag(Type.ASIAGO, 6).getTotalPrice(),
-                makeBag(Type.BLUEBERRY, 6).getTotalPrice());
-        assertEquals(makeBag(Type.ASIAGO, 13).getTotalPrice(),
-                makeBag(Type.BLUEBERRY, 13).getTotalPrice());
-
-        // Day Old
-        Bagel onion = new Bagel(Type.ONION);
-        onion.markDown();
         Bagel tomato = new Bagel(Type.SUN_DRIED_TOMATO);
         tomato.markDown();
-        assertEquals(new Bag(onion, 3).getTotalPrice(), new Bag(tomato, 3).getTotalPrice());
-        assertEquals(new Bag(onion, 6).getTotalPrice(), new Bag(tomato, 6).getTotalPrice());
-        assertEquals(new Bag(onion, 13).getTotalPrice(), new Bag(tomato, 13).getTotalPrice());
+        assertNotEquals(makeBag(Type.SUN_DRIED_TOMATO, 13), new Bag(tomato,13));
     }
 
-    // equals - Not Null, all three categories,the possible sizes
+    @Test
     void equals_False_Null() {
         // Old Fashioned
-        assertNotEquals(makeBag(Type.PLAIN, 3).getTotalPrice(), null);
-        assertNotEquals(makeBag(Type.PLAIN, 6).getTotalPrice(), null);
-        assertNotEquals(makeBag(Type.PLAIN, 13).getTotalPrice(), null);
+        assertNotEquals(makeBag(Type.POPPY_SEED,4), null);
 
         // Gourmet
-        assertNotEquals(makeBag(Type.ASIAGO, 3).getTotalPrice(), null);
-        assertNotEquals(makeBag(Type.ASIAGO, 6).getTotalPrice(), null);
-        assertNotEquals(makeBag(Type.ASIAGO, 13).getTotalPrice(), null);
+        assertNotEquals(makeBag(Type.CINNAMON_RAISIN, 12), null);
 
         // Day Old
-        Bagel blueberry = new Bagel(Type.BLUEBERRY);
-        blueberry.markDown();
-        assertNotEquals(new Bag(blueberry, 3).getTotalPrice(), null);
-        assertNotEquals(new Bag(blueberry, 6).getTotalPrice(), null);
-        assertNotEquals(new Bag(blueberry, 13).getTotalPrice(),null);
+        Bagel tomato = new Bagel(Type.SUN_DRIED_TOMATO);
+        tomato.markDown();
+        assertNotEquals(makeBag(Type.SUN_DRIED_TOMATO, 1), null);
     }
-
 
     private static Arguments makeArguments(Bagel.Type type, int quantity, BigDecimal price) {
         return Arguments.of(new Bag(new Bagel(type), quantity), price);
@@ -268,15 +177,15 @@ class BagTest {
                     makeArguments(Type.BLUEBERRY, 1, new BigDecimal(".70")),
                     makeArguments(Type.CINNAMON_RAISIN, 1, new BigDecimal(".70")),
                     makeArguments(Type.SUN_DRIED_TOMATO, 1, new BigDecimal(".70")),
-                    Arguments.of(new Bag(plain, 1), BigDecimal.valueOf(.35)),
-                    Arguments.of(new Bag(poppySeed,1), BigDecimal.valueOf(.35)),
-                    Arguments.of(new Bag(sesameSeed,1), BigDecimal.valueOf(.35)),
-                    Arguments.of(new Bag(onion,1), BigDecimal.valueOf(.35)),
-                    Arguments.of(new Bag(everything,1), BigDecimal.valueOf(.35)),
-                    Arguments.of(new Bag(asiago,1), BigDecimal.valueOf(.35)),
-                    Arguments.of(new Bag(blueberry,1), BigDecimal.valueOf(.35)),
-                    Arguments.of(new Bag(cinnamonRaisin,1), BigDecimal.valueOf(.35)),
-                    Arguments.of(new Bag(sunDriedTomato,1), BigDecimal.valueOf(.35)));
+                    Arguments.of(new Bag(plain, 1), new BigDecimal(".35")),
+                    Arguments.of(new Bag(poppySeed,1), new BigDecimal(".35")),
+                    Arguments.of(new Bag(sesameSeed,1), new BigDecimal(".35")),
+                    Arguments.of(new Bag(onion,1), new BigDecimal(".35")),
+                    Arguments.of(new Bag(everything,1), new BigDecimal(".35")),
+                    Arguments.of(new Bag(asiago,1), new BigDecimal(".35")),
+                    Arguments.of(new Bag(blueberry,1), new BigDecimal(".35")),
+                    Arguments.of(new Bag(cinnamonRaisin,1), new BigDecimal(".35")),
+                    Arguments.of(new Bag(sunDriedTomato,1), new BigDecimal(".35")));
         }
     }
 }

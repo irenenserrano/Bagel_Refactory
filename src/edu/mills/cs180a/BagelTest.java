@@ -3,9 +3,11 @@ package edu.mills.cs180a;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import edu.mills.cs180a.Bagel.Type;
 
 class BagelTest {
+
     private static Bagel PLAIN;
     private static Bagel ONION;
     private static Bagel ASIAGO;
@@ -25,7 +27,7 @@ class BagelTest {
         OLD_2.markDown();
     }
 
-    // Reflexive - all categories
+    @Test
     void equals_True_SameBagelSameTypeSameCategory() {
         // Old Fashioned
         assertEquals(PLAIN.getCategory(), PLAIN.getCategory());
@@ -40,7 +42,7 @@ class BagelTest {
         assertEquals(OLD_1.getType(), OLD_1.getType());
     }
 
-    // Symmetric - all categories
+    @Test
     void equals_True_DifferentBagelSameCategory() {
         // Old Fashioned
         assertEquals(PLAIN.getCategory(), ONION.getCategory());
@@ -52,6 +54,7 @@ class BagelTest {
         assertEquals(OLD_1.getCategory(), OLD_2.getCategory());
     }
 
+    @Test
     void equals_False_DifferentBagelDifferentType() {
         // Old Fashioned
         assertNotEquals(PLAIN.getType(), ONION.getType());
@@ -63,10 +66,10 @@ class BagelTest {
         assertNotEquals(OLD_1.getType(), OLD_2.getType());
     }
 
-    // Transitive - all categories
+    @Test
     void equals_True_ThereBagelsSameCategory() {
         // Old Fashioned
-        Bagel everything = new Bagel(Type.CINNAMON_RAISIN);
+        Bagel everything = new Bagel(Type.EVERYTHING);
         assertEquals(PLAIN.getCategory(), ONION.getCategory());
         assertEquals(ONION.getCategory(), everything.getCategory());
         assertEquals(PLAIN.getCategory(), everything.getCategory());
@@ -84,7 +87,7 @@ class BagelTest {
         assertEquals(OLD_1.getCategory(), tomato.getCategory());
     }
 
-    // Not Null - all categories
+    @Test
     void equals_False_Null() {
         // Old Fashioned
         assertNotEquals(PLAIN.getType(),null);
@@ -98,4 +101,6 @@ class BagelTest {
         assertNotEquals(OLD_1.getType(), null);
         assertNotEquals(OLD_1.getCategory(), null);
     }
+
+
 }

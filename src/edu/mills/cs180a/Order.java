@@ -47,27 +47,8 @@ public class Order {
      * @return s Generated receipt of order
      */
     public String generateReceipt() {
-        String s = "";
-        BigDecimal total = BigDecimal.valueOf(0);
-        for (Bag bag : bags) {
-            total = total.add(bag.getTotalPrice());
-            s += bag.getBagel().getType() + "\n" + "\tquantity: " + bag.getQuantity() + "\n"
-                    + "\tprice each: $"
-                    + bag.getPerBagelPrice() + "\n" + "\total: $" + "\ttotal: "
-                    + bag.getTotalPrice() + "\n";
-            if (bag.getTotalPrice()
-                    .compareTo(bag.getPerBagelPrice()
-                            .multiply(BigDecimal.valueOf(bag.getQuantity()))) < 0) {
-                s += "\tYou saved $"
-                        + (bag.getPerBagelPrice().multiply(BigDecimal.valueOf(bag.getQuantity()))
-                                .subtract(bag.getTotalPrice()))
-                        + " through our volume discount program.\n";
-            }
-        }
-        s += "TOTAL: $" + total + "\n";
-        s += "Thank you for shopping at the Bagel Refactory!\n";
-        return s;
-    }// end generateReciept
+        return Receipt.getInstance().generateReceipt(this);
+    }
 
 
     @Override
@@ -96,6 +77,10 @@ public class Order {
                     bag.getTotalPrice());
         }
         return result;
+    }
+
+    public List<Bag> getBags() {
+        return bags;
     }
 }// end class
 

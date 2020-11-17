@@ -18,15 +18,15 @@ public class Bagel {
 
 
     enum Type {
-        PLAIN("plain", Category.OLD_FASHIONED), POPPY_SEED("poppy seed",
-                Category.OLD_FASHIONED), SESAME_SEED("sesame seed", Category.OLD_FASHIONED), ONION(
-                        "onion", Category.OLD_FASHIONED), EVERYTHING("everything",
-                                Category.OLD_FASHIONED), ASIAGO("asiago",
-                                        Category.GOURMET), BLUEBERRY("blueberry",
+        PLAIN("Plain", Category.OLD_FASHIONED), POPPY_SEED("Poppy Seed",
+                Category.OLD_FASHIONED), SESAME_SEED("Sesame Seed", Category.OLD_FASHIONED), ONION(
+                        "Onion", Category.OLD_FASHIONED), EVERYTHING("Everything",
+                                Category.OLD_FASHIONED), ASIAGO("Asiago",
+                                        Category.GOURMET), BLUEBERRY("Blueberry",
                                                 Category.GOURMET), CINNAMON_RAISIN(
-                                                        "cinnamon raisin",
+                                                        "Cinnamon Raisin",
                                                         Category.GOURMET), SUN_DRIED_TOMATO(
-                                                                "sun dried tomato",
+                                                                "Sun Dried Tomato",
                                                                 Category.GOURMET);
 
         private final String name;

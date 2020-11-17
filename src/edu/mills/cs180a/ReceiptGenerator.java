@@ -1,6 +1,7 @@
 package edu.mills.cs180a;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 
 public abstract class ReceiptGenerator {
     private final String receiptHeader;
@@ -33,27 +34,31 @@ public abstract class ReceiptGenerator {
                 sb.append(generateSavings(bag));
             }
         }
-        sb.append(generateFooter(total.doubleValue()));
+        sb.append(generateFooter(total));
         return sb.toString();
     }// end generateReciept
 
     protected String generateBody(Bag bag) {
         String bagelType = bag.getBagel().getType().toString();
         int quantity = bag.getQuantity();
-        double pricePer = bag.getPerBagelPrice().doubleValue();
-        double total = bag.getTotalPrice().doubleValue();
+        String pricePer = formatMoney(bag.getPerBagelPrice());
+        String total = formatMoney(bag.getTotalPrice());
 
         return String.format(receiptBody, bagelType, quantity, pricePer, total);
     }
 
     protected String generateSavings(Bag bag) {
-        double savings =
-                (bag.getPerBagelPrice().multiply(BigDecimal.valueOf(bag.getQuantity()))
-                        .subtract(bag.getTotalPrice())).doubleValue();
+        String savings =
+                formatMoney(bag.getPerBagelPrice().multiply(BigDecimal.valueOf(bag.getQuantity()))
+                        .subtract(bag.getTotalPrice()));
         return String.format(receiptSavings, savings);
     }
 
-    protected String generateFooter(double total) {
-        return String.format(receiptFooter, total);
+    protected String generateFooter(BigDecimal total) {
+        return String.format(receiptFooter, formatMoney(total));
+    }
+
+    protected static String formatMoney(BigDecimal bd) {
+        return NumberFormat.getCurrencyInstance().format(bd);
     }
 }

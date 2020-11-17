@@ -47,7 +47,7 @@ public class Order {
      * @return s Generated receipt of order
      */
     public String generateReceipt() {
-        return Receipt.getInstance().generateReceipt(this);
+        return TextReceiptGenerator.getInstance().generateReceipt(this);
     }
 
 

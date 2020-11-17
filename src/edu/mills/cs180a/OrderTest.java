@@ -79,8 +79,6 @@ class OrderTest {
                 makeOrder(BAG_BLUEBERRY_3, BAG_PLAIN_3));
         assertEquals(makeOrder(BAG_OLDTOMATO_3, BAG_CINNAMON_3, BAG_ONION_3),
                 makeOrder(BAG_CINNAMON_3, BAG_OLDTOMATO_3, BAG_ONION_3));
-        // assertEquals(makeOrder(BAG_POPPY_3, BAG_OLDEVERYTHING_3, BAG_SESAME_3),
-        // makeOrder(BAG_SESAME_3, BAG_OLDEVERYTHING_3, BAG_POPPY_3));
         assertEquals(makeOrder(BAG_ASIAGO_3, BAG_CINNAMON_3, BAG_OLDPLAIN_3),
                 makeOrder(BAG_OLDPLAIN_3, BAG_ASIAGO_3, BAG_CINNAMON_3));
     }
@@ -95,11 +93,11 @@ class OrderTest {
 
     private static Bag makeBag(Bagel.Type type, int quantity) {
         return new Bag(new Bagel(type), quantity);
-    }// end makeBagArguments
+    }
 
     private static Order makeOrder(Bag... bags) {
         return Order.of(bags);
-    }// end makeOrderArguments
+    }
 
     static class OrderArgumentsProvider_MultipleBagAmounts implements ArgumentsProvider {
         Bagel blueberry = new Bagel(Type.BLUEBERRY);
@@ -183,6 +181,6 @@ class OrderTest {
                             makeOrder(makeBag(Type.PLAIN, 6), makeBag(Type.ASIAGO, 6),
                                     new Bag(blueberry, 6), makeBag(Type.SUN_DRIED_TOMATO, 6)),
                             new BigDecimal("12.83")));
-        }// end stream
-    }// end OneBagEachCategory
+        }
+    }
 }

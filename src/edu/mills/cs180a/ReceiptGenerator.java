@@ -36,7 +36,7 @@ public abstract class ReceiptGenerator {
         }
         sb.append(generateFooter(total));
         return sb.toString();
-    }// end generateReciept
+    }
 
     protected String generateBody(Bag bag) {
         String bagelType = bag.getBagel().getType().toString();

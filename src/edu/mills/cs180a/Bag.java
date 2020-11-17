@@ -41,8 +41,7 @@ public class Bag implements Comparable<Bag> {
         if (this.quantity < 1) {
             throw new IllegalArgumentException("Not a valid order");
         }
-
-    }// end constructor
+    }
 
     /**
      * Gets the bagel held in this bag.
@@ -51,7 +50,7 @@ public class Bag implements Comparable<Bag> {
      */
     public Bagel getBagel() {
         return bagel;
-    }// end getBagel
+    }
 
     /**
      * Gets the number of bagels in this bag.
@@ -60,7 +59,7 @@ public class Bag implements Comparable<Bag> {
      */
     public int getQuantity() {
         return quantity;
-    }// end getQuantity
+    }
 
     /**
      * Gets the total price for this bag of bagels. This may be less than the per-bagel price times
@@ -77,9 +76,8 @@ public class Bag implements Comparable<Bag> {
             return undiscountedPrice.multiply(BULK_DISCOUNT_MULTIPLIER,
                     new MathContext(3));
         }
-
         return undiscountedPrice;
-    }// end getTotalPrice
+    }
 
     /**
      * Returns the price associated with the bagel type.
@@ -88,16 +86,15 @@ public class Bag implements Comparable<Bag> {
      */
     public BigDecimal getPerBagelPrice() {
         return bagel.getCategory().getPrice();
-    }// end getPerBagelPrice
+    }
 
     @Override
     public String toString() {
         return bagel.toString();
-    }// end toString
+    }
 
     @Override
     public boolean equals(Object object) {
-        // check to see that the object passed in is a Bag
         if (!(object instanceof Bag))
             return false;
 
@@ -112,7 +109,7 @@ public class Bag implements Comparable<Bag> {
             return true;
         }
         return false;
-    }// end equals
+    }
 
     @Override
     public int hashCode() {
@@ -130,5 +127,5 @@ public class Bag implements Comparable<Bag> {
         + amount.compareTo((Integer)this.quantity) + totalPrice.compareTo(getTotalPrice()));
 
     }
-}// end class
+}
 

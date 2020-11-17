@@ -35,14 +35,14 @@ public class Bagel {
         private Type(String name, Category category) {
             this.name = name;
             this.category = category;
-        }// end constructor
+        }
 
         @Override
         public String toString() {
             return name;
-        }// end toString
+        }
 
-    }// end enum
+    }
 
     enum Category {
         OLD_FASHIONED(OLD_FASHIONED_PRICE), GOURMET(GOURMET_PRICE), DAY_OLD(DAY_OLD_PRICE);
@@ -51,12 +51,12 @@ public class Bagel {
 
         private Category(BigDecimal price) {
             this.price = price;
-        }// end constructor
+        }
 
         public BigDecimal getPrice() {
             return price;
-        }// end getPrice
-    }// end enum
+        }
+    }
 
     /**
      * Constructs a bagel of the given type.
@@ -66,7 +66,7 @@ public class Bagel {
     public Bagel(Type type) {
         this.type = type;
         this.currentCategory = type.category;
-    }// end constructor
+    }
 
     /**
      * Gets the type of the bagel.
@@ -75,7 +75,7 @@ public class Bagel {
      */
     public Type getType() {
         return type;
-    }// end getType
+    }
 
     /**
      * Gets the category of the bagel.
@@ -84,23 +84,22 @@ public class Bagel {
      */
     public Category getCategory() {
         return currentCategory;
-    }// end get Category
+    }
 
     /**
      * Marks down this bagel.
      */
     public void markDown() {
         currentCategory = Category.DAY_OLD;
-    }// end markDown
+    }
 
     @Override
     public String toString() {
         return type.toString();
-    }// end toString
+    }
 
     @Override
     public boolean equals(Object object) {
-        // check to see that the object is a Bagel
         if(!(object instanceof Order))
             return false;
 
@@ -109,11 +108,10 @@ public class Bagel {
         if (type.equals(this.type) && category.equals(this.getCategory()))
             return true;
         return false;
-    }// end equals
+    }
 
     @Override
     public int hashCode() {
         return Objects.hash(this.type, this.currentCategory);
     }
-
-}// end class
+}

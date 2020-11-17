@@ -39,7 +39,7 @@ public class Order {
             price = price.add(bag.getTotalPrice());
         }
         return price;
-    }// end getPrice
+    }
 
     /**
      * Generates a printed receipt containing the contents, discounts, and total final price
@@ -82,5 +82,5 @@ public class Order {
     public List<Bag> getBags() {
         return bags;
     }
-}// end class
+}
 

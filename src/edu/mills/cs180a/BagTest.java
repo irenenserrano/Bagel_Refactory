@@ -140,7 +140,7 @@ class BagTest {
                     makeArguments(Type.ASIAGO, 6, new BigDecimal("3.99")),
                     makeArguments(Type.ASIAGO, 13, new BigDecimal("8.40")),
                     Arguments.of(new Bag(old, 3), new BigDecimal("1.05")),
-                    Arguments.of(new Bag(old, 6), new BigDecimal("1.99")),
+                    Arguments.of(new Bag(old, 6), new BigDecimal("2.00")),
                     Arguments.of(new Bag(old, 13), new BigDecimal("4.20")));
         }
     }

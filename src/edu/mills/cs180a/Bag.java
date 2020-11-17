@@ -2,7 +2,6 @@ package edu.mills.cs180a;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.math.RoundingMode;
 import java.util.Objects;
 import edu.mills.cs180a.Bagel.Type;
 
@@ -76,7 +75,7 @@ public class Bag implements Comparable<Bag> {
         }
         if (quantity >= BULK_DISCOUNT_MINIMUM && quantity != 13) {
             return undiscountedPrice.multiply(BULK_DISCOUNT_MULTIPLIER,
-                    new MathContext(3, RoundingMode.HALF_DOWN));
+                    new MathContext(3));
         }
 
         return undiscountedPrice;

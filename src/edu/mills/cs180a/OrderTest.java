@@ -119,7 +119,7 @@ class OrderTest {
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 6)), new BigDecimal("3.99")),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 13)), new BigDecimal("8.40")),
                     Arguments.of(makeOrder(bag3old), new BigDecimal("1.05")),
-                    Arguments.of(makeOrder(bag6old), new BigDecimal("1.99")),
+                    Arguments.of(makeOrder(bag6old), new BigDecimal("2.00")),
                     Arguments.of(makeOrder(bag13old), new BigDecimal("4.20")),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 3)),
                             new BigDecimal("3.60")),
@@ -128,7 +128,7 @@ class OrderTest {
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), new Bag(blueberry, 3)),
                             new BigDecimal("3.15")),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 6), new Bag(blueberry, 6)),
-                            new BigDecimal("5.98")),
+                            new BigDecimal("5.99")),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 13), makeBag(Type.ASIAGO, 13)),
                             new BigDecimal("14.40")),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 13), new Bag(blueberry, 13)),
@@ -138,7 +138,7 @@ class OrderTest {
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 6)),
                             new BigDecimal("5.49")),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), new Bag(blueberry, 6)),
-                            new BigDecimal("3.49")),
+                            new BigDecimal("3.50")),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), new Bag(blueberry, 13)),
                             new BigDecimal("5.70")),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), makeBag(Type.PLAIN, 6)),
@@ -146,7 +146,7 @@ class OrderTest {
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), makeBag(Type.PLAIN, 13)),
                             new BigDecimal("8.10")),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), new Bag(blueberry, 6)),
-                            new BigDecimal("4.09")),
+                            new BigDecimal("4.10")),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), new Bag(blueberry, 13)),
                             new BigDecimal("6.30")),
                     Arguments.of(makeOrder(new Bag(blueberry, 3), makeBag(Type.PLAIN, 6)),
@@ -166,7 +166,7 @@ class OrderTest {
                     Arguments.of(makeOrder(new Bag(blueberry, 3), makeBag(Type.PLAIN, 6),
                             makeBag(Type.ASIAGO, 13)), new BigDecimal("12.30")),
                     Arguments.of(makeOrder(new Bag(blueberry, 6), makeBag(Type.PLAIN, 13),
-                            makeBag(Type.ASIAGO, 13)), new BigDecimal("16.39")),
+                            makeBag(Type.ASIAGO, 13)), new BigDecimal("16.40")),
                     Arguments.of(
                             makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 6),
                                     new Bag(blueberry, 3), makeBag(Type.SUN_DRIED_TOMATO, 3)),
@@ -174,7 +174,7 @@ class OrderTest {
                     Arguments.of(
                             makeOrder(makeBag(Type.PLAIN, 13), makeBag(Type.ASIAGO, 13),
                                     new Bag(blueberry, 6), makeBag(Type.SUN_DRIED_TOMATO, 3)),
-                            new BigDecimal("18.49")),
+                            new BigDecimal("18.50")),
                     Arguments.of(
                             makeOrder(makeBag(Type.PLAIN, 13), makeBag(Type.ASIAGO, 3),
                                     new Bag(blueberry, 13), makeBag(Type.SUN_DRIED_TOMATO, 6)),
@@ -182,7 +182,7 @@ class OrderTest {
                     Arguments.of(
                             makeOrder(makeBag(Type.PLAIN, 6), makeBag(Type.ASIAGO, 6),
                                     new Bag(blueberry, 6), makeBag(Type.SUN_DRIED_TOMATO, 6)),
-                            new BigDecimal("12.82")));
+                            new BigDecimal("12.83")));
         }// end stream
     }// end OneBagEachCategory
 }

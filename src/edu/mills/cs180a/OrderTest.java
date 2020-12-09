@@ -2,7 +2,6 @@ package edu.mills.cs180a;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import java.math.BigDecimal;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,8 +17,8 @@ class OrderTest {
     // testing an order of one bag, each category, each possible size
     @ParameterizedTest
     @ArgumentsSource(OrderArgumentsProvider_MultipleBagAmounts.class)
-    void getPrice_assertEquals_MultipleBagCombinations(Order order, BigDecimal cost) {
-        assertEquals(cost, order.getPrice());
+    void getPrice_assertEquals_MultipleBagCombinations(Order order, double expectedPrice) {
+        assertEquals(expectedPrice, order.getPrice().doubleValue());
     }
 
     private static Bag BAG_PLAIN_3;
@@ -95,8 +94,8 @@ class OrderTest {
         return new Bag(new Bagel(type), quantity);
     }
 
-    private static Order makeOrder(Bag... bags) {
-        return Order.of(bags);
+    private static Order makeOrder(Bag bag, Bag... bags) {
+        return Order.of(bag, bags);
     }
 
     static class OrderArgumentsProvider_MultipleBagAmounts implements ArgumentsProvider {
@@ -110,77 +109,77 @@ class OrderTest {
                 throws Exception {
             blueberry.markDown();
             return Stream.of(
-                    Arguments.of(makeOrder(makeBag(Type.PLAIN, 3)), new BigDecimal("1.50")),
-                    Arguments.of(makeOrder(makeBag(Type.PLAIN, 6)), new BigDecimal("2.85")),
-                    Arguments.of(makeOrder(makeBag(Type.PLAIN, 13)), new BigDecimal("6.00")),
-                    Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3)), new BigDecimal("2.10")),
-                    Arguments.of(makeOrder(makeBag(Type.ASIAGO, 6)), new BigDecimal("3.99")),
-                    Arguments.of(makeOrder(makeBag(Type.ASIAGO, 13)), new BigDecimal("8.40")),
-                    Arguments.of(makeOrder(bag3old), new BigDecimal("1.05")),
-                    Arguments.of(makeOrder(bag6old), new BigDecimal("2.00")),
-                    Arguments.of(makeOrder(bag13old), new BigDecimal("4.20")),
+                    Arguments.of(makeOrder(makeBag(Type.PLAIN, 3)), 1.5),
+                    Arguments.of(makeOrder(makeBag(Type.PLAIN, 6)), 2.85),
+                    Arguments.of(makeOrder(makeBag(Type.PLAIN, 13)), 6.0),
+                    Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3)), 2.1),
+                    Arguments.of(makeOrder(makeBag(Type.ASIAGO, 6)), 3.99),
+                    Arguments.of(makeOrder(makeBag(Type.ASIAGO, 13)), 8.4),
+                    Arguments.of(makeOrder(bag3old), 1.05),
+                    Arguments.of(makeOrder(bag6old), 2.0),
+                    Arguments.of(makeOrder(bag13old), 4.2),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 3)),
-                            new BigDecimal("3.60")),
+                            3.6),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), new Bag(blueberry, 3)),
-                            new BigDecimal("2.55")),
+                            2.55),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), new Bag(blueberry, 3)),
-                            new BigDecimal("3.15")),
+                            3.15),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 6), new Bag(blueberry, 6)),
-                            new BigDecimal("5.99")),
+                            5.99),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 13), makeBag(Type.ASIAGO, 13)),
-                            new BigDecimal("14.40")),
+                            14.4),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 13), new Bag(blueberry, 13)),
-                            new BigDecimal("10.20")),
+                            10.2),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 13), new Bag(blueberry, 13)),
-                            new BigDecimal("12.60")),
+                            12.6),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 6)),
-                            new BigDecimal("5.49")),
+                            5.49),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), new Bag(blueberry, 6)),
-                            new BigDecimal("3.50")),
+                            3.5),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 3), new Bag(blueberry, 13)),
-                            new BigDecimal("5.70")),
+                            5.7),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), makeBag(Type.PLAIN, 6)),
-                            new BigDecimal("4.95")),
+                            4.95),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), makeBag(Type.PLAIN, 13)),
-                            new BigDecimal("8.10")),
+                            8.1),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), new Bag(blueberry, 6)),
-                            new BigDecimal("4.10")),
+                            4.1),
                     Arguments.of(makeOrder(makeBag(Type.ASIAGO, 3), new Bag(blueberry, 13)),
-                            new BigDecimal("6.30")),
+                            6.3),
                     Arguments.of(makeOrder(new Bag(blueberry, 3), makeBag(Type.PLAIN, 6)),
-                            new BigDecimal("3.90")),
+                            3.9),
                     Arguments.of(makeOrder(new Bag(blueberry, 3), makeBag(Type.PLAIN, 13)),
-                            new BigDecimal("7.05")),
+                            7.05),
                     Arguments.of(makeOrder(new Bag(blueberry, 3), makeBag(Type.ASIAGO, 6)),
-                            new BigDecimal("5.04")),
+                            5.04),
                     Arguments.of(makeOrder(new Bag(blueberry, 3), makeBag(Type.ASIAGO, 13)),
-                            new BigDecimal("9.45")),
+                            9.45),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 6), makeBag(Type.ASIAGO, 13),
-                            new Bag(blueberry, 13)), new BigDecimal("15.45")),
+                            new Bag(blueberry, 13)), 15.45),
                     Arguments.of(makeOrder(makeBag(Type.PLAIN, 13), makeBag(Type.ASIAGO, 13),
-                            new Bag(blueberry, 13)), new BigDecimal("18.60")),
+                            new Bag(blueberry, 13)), 18.6),
                     Arguments.of(makeOrder(new Bag(blueberry, 3), makeBag(Type.PLAIN, 6),
-                            makeBag(Type.ASIAGO, 6)), new BigDecimal("7.89")),
+                            makeBag(Type.ASIAGO, 6)), 7.89),
                     Arguments.of(makeOrder(new Bag(blueberry, 3), makeBag(Type.PLAIN, 6),
-                            makeBag(Type.ASIAGO, 13)), new BigDecimal("12.30")),
+                            makeBag(Type.ASIAGO, 13)), 12.30),
                     Arguments.of(makeOrder(new Bag(blueberry, 6), makeBag(Type.PLAIN, 13),
-                            makeBag(Type.ASIAGO, 13)), new BigDecimal("16.40")),
+                            makeBag(Type.ASIAGO, 13)), 16.40),
                     Arguments.of(
                             makeOrder(makeBag(Type.PLAIN, 3), makeBag(Type.ASIAGO, 6),
                                     new Bag(blueberry, 3), makeBag(Type.SUN_DRIED_TOMATO, 3)),
-                            new BigDecimal("8.64")),
+                            8.64),
                     Arguments.of(
                             makeOrder(makeBag(Type.PLAIN, 13), makeBag(Type.ASIAGO, 13),
                                     new Bag(blueberry, 6), makeBag(Type.SUN_DRIED_TOMATO, 3)),
-                            new BigDecimal("18.50")),
+                            18.50),
                     Arguments.of(
                             makeOrder(makeBag(Type.PLAIN, 13), makeBag(Type.ASIAGO, 3),
                                     new Bag(blueberry, 13), makeBag(Type.SUN_DRIED_TOMATO, 6)),
-                            new BigDecimal("16.29")),
+                            16.29),
                     Arguments.of(
                             makeOrder(makeBag(Type.PLAIN, 6), makeBag(Type.ASIAGO, 6),
                                     new Bag(blueberry, 6), makeBag(Type.SUN_DRIED_TOMATO, 6)),
-                            new BigDecimal("12.83")));
+                            12.83));
         }
     }
 }

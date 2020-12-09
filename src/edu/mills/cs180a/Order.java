@@ -1,10 +1,9 @@
 package edu.mills.cs180a;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A Bagel Refactory order consisting of one or more instances of {@link Bag}.
@@ -15,23 +14,30 @@ public class Order {
     private List<Bag> bags;
 
     // constructor
-    private Order(Bag...bags) {
-        this.bags = Arrays.asList(bags);
+    private Order(List<Bag> bags) {
+        this.bags = bags;
     }
 
     /**
-     * Constructs an order given any amount of bags
+     * Constructs an order given any amount of bags.
      *
-     * @param bags
+     * @param bagsOfBagels
      */
-    public static Order of(Bag...bagsOfBagels) {
-        return new Order(bagsOfBagels);
+    public static Order of(Bag bag, Bag...bagsOfBagels) {
+        List<Bag> listOfBags = new ArrayList<Bag>();
+        listOfBags.add(bag);
+        for(Bag b : bagsOfBagels) {
+            listOfBags.add(b);
+        }
+
+        return new Order(listOfBags);
     }
 
+
     /**
-     * Generates the total price of a single order based on the contents of each bag
+     * Generates the total price of this order based on the contents of each bag.
      *
-     * @return price
+     * @return the price
      */
     public BigDecimal getPrice() {
         BigDecimal price = new BigDecimal(0);
@@ -42,9 +48,9 @@ public class Order {
     }
 
     /**
-     * Generates a printed receipt containing the contents, discounts, and total final price
+     * Generates a printed receipt containing the contents, discounts, and total final price.
      *
-     * @return s Generated receipt of order
+     * @return An instance of a receipt for this order.
      */
     public String generateReceipt() {
         return TextReceiptGenerator.getInstance().generateReceipt(this);
@@ -53,7 +59,11 @@ public class Order {
 
     @Override
     public String toString() {
-        return bags.toString();
+        StringBuilder str = new StringBuilder("Order of:\n");
+        for (int i = 0; i < bags.size(); i++) {
+            str.append("\tItem ").append(i).append(": ").append(bags.get(i).toString()).append("\n");
+        }
+        return str.toString();
     }
 
     @Override
@@ -73,8 +83,7 @@ public class Order {
     public int hashCode() {
         int result = 0;
         for (Bag bag : bags) {
-            result = Objects.hash(bag.getBagel(), bag.getQuantity(), bag.getPerBagelPrice(),
-                    bag.getTotalPrice());
+            result += bag.hashCode();
         }
         return result;
     }

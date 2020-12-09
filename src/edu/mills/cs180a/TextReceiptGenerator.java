@@ -7,6 +7,11 @@ public class TextReceiptGenerator extends ReceiptGenerator{
     private static final String RECEIPT_SAVINGS = "\t You saved %s through our volume discount program. \n";
     private static final String RECEIPT_FOOTER = "TOTAL: %s \n Thank you for shopping at Bagel Refactory!";
 
+    /**
+     * Generates a single instance of a printed receipt.
+     *
+     * @return the instance
+     */
     public static final TextReceiptGenerator getInstance() {
         return INSTANCE;
     }

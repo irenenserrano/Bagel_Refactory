@@ -90,7 +90,8 @@ public class Bag implements Comparable<Bag> {
 
     @Override
     public String toString() {
-        return bagel.toString();
+        return "Bag of " + getQuantity() + " " + bagel.toString() + " bagels at "
+                + getPerBagelPrice() + " cents a piece.\nTotal Price: " + getTotalPrice();
     }
 
     @Override
@@ -102,10 +103,9 @@ public class Bag implements Comparable<Bag> {
         Type bagelType = bag.getBagel().getType();
         BigDecimal singlePrice = bag.getPerBagelPrice();
         int amount = bag.getQuantity();
-        BigDecimal totalPrice = bag.getTotalPrice();
 
         if (bagelType.equals(this.bagel.getType()) && singlePrice.equals(getPerBagelPrice())
-                && amount == this.quantity && totalPrice.equals(this.getTotalPrice())) {
+                && amount == this.quantity) {
             return true;
         }
         return false;
@@ -118,13 +118,9 @@ public class Bag implements Comparable<Bag> {
 
     @Override
     public int compareTo(Bag bag) {
-        Type bagelType = bag.getBagel().getType();
-        BigDecimal pricePer = bag.getPerBagelPrice();
-        Integer amount = (Integer)bag.getQuantity();
-        BigDecimal totalPrice = bag.getTotalPrice();
+        String str = bag.toString();
 
-        return (bagelType.compareTo(this.bagel.getType()) + pricePer.compareTo(getPerBagelPrice())
-        + amount.compareTo((Integer)this.quantity) + totalPrice.compareTo(getTotalPrice()));
+        return str.compareTo(this.toString());
 
     }
 }

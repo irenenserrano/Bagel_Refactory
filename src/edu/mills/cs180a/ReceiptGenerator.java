@@ -17,9 +17,9 @@ public abstract class ReceiptGenerator {
     }
 
     /**
-     * Generates a printed receipt containing the contents, discounts, and total final price
+     * Generates a printed receipt containing the contents, discounts, and total final price.
      *
-     * @return s Generated receipt of order
+     * @return order Generated receipt of order.
      */
     public String generateReceipt(Order order) {
         StringBuilder sb = new StringBuilder();

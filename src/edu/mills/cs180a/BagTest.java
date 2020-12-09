@@ -2,7 +2,6 @@ package edu.mills.cs180a;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import java.math.BigDecimal;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -16,16 +15,16 @@ class BagTest {
     // testing under bulk minimum/bulk minimum/buy1get1free for each category
     @ParameterizedTest
     @ArgumentsSource(BagArgumentsProvider_getTotalPrice.class)
-    void getTotalPrice_assertEquals_DiffBagelAmounts(Bag bag, BigDecimal cost) {
-        assertEquals(cost, bag.getTotalPrice());
+    void getTotalPrice_assertEquals_VaryingAmountsOfBagel(Bag bag, double expectedPrice) {
+        assertEquals(expectedPrice, bag.getTotalPrice().doubleValue());
     }
 
     // testing the correct price is return for one of each bagel in each old
     // fashioned and gourmet categories
     @ParameterizedTest
     @ArgumentsSource(BagArgumentsProvider_getPerBagelPriceOFG.class)
-    void getPerBagelPrice_assertEquals_CorrectPricePerBagelOFG(Bag bag, BigDecimal cost) {
-        assertEquals(cost, bag.getPerBagelPrice());
+    void getPerBagelPrice_assertEquals_CorrectPricePerBagelOFG(Bag bag, double expectedPrice) {
+        assertEquals(expectedPrice, bag.getPerBagelPrice().doubleValue());
     }
 
     // creates a new bag object
@@ -121,7 +120,7 @@ class BagTest {
         assertNotEquals(makeBag(Type.SUN_DRIED_TOMATO, 1), null);
     }
 
-    private static Arguments makeArguments(Bagel.Type type, int quantity, BigDecimal price) {
+    private static Arguments makeArguments(Bagel.Type type, int quantity, double price) {
         return Arguments.of(new Bag(new Bagel(type), quantity), price);
     }
 
@@ -133,15 +132,15 @@ class BagTest {
                 throws Exception {
             old.markDown();
             return Stream.of(
-                    makeArguments(Type.PLAIN, 3, new BigDecimal("1.50")),
-                    makeArguments(Type.PLAIN, 6, new BigDecimal("2.85")),
-                    makeArguments(Type.PLAIN, 13, new BigDecimal("6.00")),
-                    makeArguments(Type.ASIAGO, 3, new BigDecimal("2.10")),
-                    makeArguments(Type.ASIAGO, 6, new BigDecimal("3.99")),
-                    makeArguments(Type.ASIAGO, 13, new BigDecimal("8.40")),
-                    Arguments.of(new Bag(old, 3), new BigDecimal("1.05")),
-                    Arguments.of(new Bag(old, 6), new BigDecimal("2.00")),
-                    Arguments.of(new Bag(old, 13), new BigDecimal("4.20")));
+                    makeArguments(Type.PLAIN, 3, 1.5),
+                    makeArguments(Type.PLAIN, 6, 2.85),
+                    makeArguments(Type.PLAIN, 13, 6.0),
+                    makeArguments(Type.ASIAGO, 3, 2.1),
+                    makeArguments(Type.ASIAGO, 6, 3.99),
+                    makeArguments(Type.ASIAGO, 13, 8.40),
+                    Arguments.of(new Bag(old, 3), 1.05),
+                    Arguments.of(new Bag(old, 6), 2.00),
+                    Arguments.of(new Bag(old, 13), 4.2));
         }
     }
 
@@ -168,24 +167,24 @@ class BagTest {
             cinnamonRaisin.markDown();
             sunDriedTomato.markDown();
             return Stream.of(
-                    makeArguments(Type.PLAIN, 1, new BigDecimal(".50")),
-                    makeArguments(Type.POPPY_SEED, 1, new BigDecimal(".50")),
-                    makeArguments(Type.SESAME_SEED, 1, new BigDecimal(".50")),
-                    makeArguments(Type.ONION, 1, new BigDecimal(".50")),
-                    makeArguments(Type.EVERYTHING, 1, new BigDecimal(".50")),
-                    makeArguments(Type.ASIAGO, 1, new BigDecimal(".70")),
-                    makeArguments(Type.BLUEBERRY, 1, new BigDecimal(".70")),
-                    makeArguments(Type.CINNAMON_RAISIN, 1, new BigDecimal(".70")),
-                    makeArguments(Type.SUN_DRIED_TOMATO, 1, new BigDecimal(".70")),
-                    Arguments.of(new Bag(plain, 1), new BigDecimal(".35")),
-                    Arguments.of(new Bag(poppySeed,1), new BigDecimal(".35")),
-                    Arguments.of(new Bag(sesameSeed,1), new BigDecimal(".35")),
-                    Arguments.of(new Bag(onion,1), new BigDecimal(".35")),
-                    Arguments.of(new Bag(everything,1), new BigDecimal(".35")),
-                    Arguments.of(new Bag(asiago,1), new BigDecimal(".35")),
-                    Arguments.of(new Bag(blueberry,1), new BigDecimal(".35")),
-                    Arguments.of(new Bag(cinnamonRaisin,1), new BigDecimal(".35")),
-                    Arguments.of(new Bag(sunDriedTomato,1), new BigDecimal(".35")));
+                    makeArguments(Type.PLAIN, 1, .5),
+                    makeArguments(Type.POPPY_SEED, 1, .5),
+                    makeArguments(Type.SESAME_SEED, 1, .5),
+                    makeArguments(Type.ONION, 1, .5),
+                    makeArguments(Type.EVERYTHING, 1, .5),
+                    makeArguments(Type.ASIAGO, 1, .7),
+                    makeArguments(Type.BLUEBERRY, 1, .7),
+                    makeArguments(Type.CINNAMON_RAISIN, 1, .7),
+                    makeArguments(Type.SUN_DRIED_TOMATO, 1, .7),
+                    Arguments.of(new Bag(plain, 1), .35),
+                    Arguments.of(new Bag(poppySeed,1), .35),
+                    Arguments.of(new Bag(sesameSeed,1), .35),
+                    Arguments.of(new Bag(onion,1), .35),
+                    Arguments.of(new Bag(everything,1), .35),
+                    Arguments.of(new Bag(asiago,1), .35),
+                    Arguments.of(new Bag(blueberry,1), .35),
+                    Arguments.of(new Bag(cinnamonRaisin,1), .35),
+                    Arguments.of(new Bag(sunDriedTomato,1), .35));
         }
     }
 }

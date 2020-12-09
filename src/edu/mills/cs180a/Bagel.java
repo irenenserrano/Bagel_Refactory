@@ -105,9 +105,8 @@ public class Bagel {
 
         String type = ((Bagel) object).getType().toString();
         Category category = ((Bagel) object).getCategory();
-        if (type.equals(this.type) && category.equals(this.getCategory()))
-            return true;
-        return false;
+        return type.equals(this.type) && category.equals(this.getCategory());
+
     }
 
     @Override

@@ -13,15 +13,15 @@ class TextReceiptGeneratorTest {
         return new Bag(new Bagel(type), quantity);
     }
 
-    private static Bag PLAIN_7 = makeBag(Type.PLAIN, 7);
-    private static Bag RAISIN_13 = makeBag(Type.CINNAMON_RAISIN, 13);
-    private static Bagel ASIAGO = new Bagel(Type.ASIAGO);
-    private static Bag OLD_3 = new Bag(ASIAGO, 3);
+    private static final Bag PLAIN_7 = makeBag(Type.PLAIN, 7);
+    private static final Bag RAISIN_13 = makeBag(Type.CINNAMON_RAISIN, 13);
+    private static final Bagel ASIAGO = new Bagel(Type.ASIAGO);
+    private static final Bag OLD_3 = new Bag(ASIAGO, 3);
 
     @Test
     void generateBody_CorretOutput_ValidBody() {
         ASIAGO.markDown();
-        String output1 = "Plain \n \tQuantity: 7 \n \tPrice each: $0.50 \n Total: $3.32 \n";
+        String output1 = "Plain \n \tQuantity: 7 \n \tPrice each: $0.50 \n Total: $3.33 \n";
         String output2 = "Cinnamon Raisin \n \tQuantity: 13 \n \tPrice each: $0.70 \n Total: $8.40 \n";
         String output3 = "Asiago \n \tQuantity: 3 \n \tPrice each: $0.35 \n Total: $1.05 \n";
         assertEquals(output1, GENERATOR.generateBody(PLAIN_7));
@@ -31,7 +31,7 @@ class TextReceiptGeneratorTest {
 
     @Test
     void generateSavings_CorrectOutput_ValidSavings() {
-        String output1 = "\t You saved $0.18 through our volume discount program. \n";
+        String output1 = "\t You saved $0.17 through our volume discount program. \n";
         String output2 = "\t You saved $0.70 through our volume discount program. \n";
         assertEquals(output1, GENERATOR.generateSavings(PLAIN_7));
         assertEquals(output2, GENERATOR.generateSavings(RAISIN_13));

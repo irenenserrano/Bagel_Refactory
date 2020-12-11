@@ -23,6 +23,7 @@ public class Order {
      *
      * @param bag one bag
      * @param bagsOfBagels varying amount of bags
+     * @return new Order
      */
     public static Order of(Bag bag, Bag... bagsOfBagels) {
         List<Bag> listOfBags = new ArrayList<Bag>();
@@ -51,7 +52,7 @@ public class Order {
     /**
      * Generates a printed receipt containing the contents, discounts, and total final price.
      *
-     * @return an instance of a receipt for this order.
+     * @return a receipt for this order
      */
     public String generateReceipt() {
         return TextReceiptGenerator.getInstance().generateReceipt(this);

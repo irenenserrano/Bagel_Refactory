@@ -3,7 +3,6 @@ package edu.mills.cs180a;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Objects;
-import edu.mills.cs180a.Bagel.Type;
 
 /**
  * A bag of any quantity of a single type of bagel.
@@ -101,11 +100,11 @@ public class Bag implements Comparable<Bag> {
         }
 
         Bag bag = (Bag) object;
-        Type bagelType = bag.getBagel().getType();
+        Bagel bagel = bag.getBagel();
         BigDecimal singlePrice = bag.getPerBagelPrice();
         int amount = bag.getQuantity();
 
-        if (bagelType.equals(this.bagel.getType()) && singlePrice.equals(getPerBagelPrice())
+        if (bagel.equals(this.bagel) && singlePrice.equals(getPerBagelPrice())
                 && amount == this.quantity) {
             return true;
         }

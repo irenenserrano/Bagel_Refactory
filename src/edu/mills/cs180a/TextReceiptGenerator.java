@@ -8,7 +8,7 @@ public class TextReceiptGenerator extends ReceiptGenerator{
     private static final String RECEIPT_FOOTER = "TOTAL: %s \n Thank you for shopping at Bagel Refactory!";
 
     /**
-     * Generates a single instance of a printed receipt.
+     * Gets an instance of {@code TextReceiptGenerator}.
      *
      * @return the instance
      */

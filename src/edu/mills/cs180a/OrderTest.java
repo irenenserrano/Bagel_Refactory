@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 import edu.mills.cs180a.Bagel.Type;
+import edu.mills.cs180a.OrderTest.OrderArgumentsProvider_MultipleBagAmounts;
 
 class OrderTest {
 
@@ -73,7 +74,6 @@ class OrderTest {
 
     @Test
     void equals_True_SameBagsDiffOrder() {
-        System.out.println("SameBagsDiffOrder");
         assertEquals(makeOrder(BAG_PLAIN_3, BAG_BLUEBERRY_3),
                 makeOrder(BAG_BLUEBERRY_3, BAG_PLAIN_3));
         assertEquals(makeOrder(BAG_OLDTOMATO_3, BAG_CINNAMON_3, BAG_ONION_3),

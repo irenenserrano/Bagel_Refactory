@@ -19,14 +19,15 @@ public class Order {
     }
 
     /**
-     * Constructs an order given any amount of bags.
+     * Constructs an order given one or more bags.
      *
-     * @param bagsOfBagels
+     * @param bag one bag
+     * @param bagsOfBagels varying amount of bags
      */
-    public static Order of(Bag bag, Bag...bagsOfBagels) {
+    public static Order of(Bag bag, Bag... bagsOfBagels) {
         List<Bag> listOfBags = new ArrayList<Bag>();
         listOfBags.add(bag);
-        for(Bag b : bagsOfBagels) {
+        for (Bag b : bagsOfBagels) {
             listOfBags.add(b);
         }
 
@@ -50,7 +51,7 @@ public class Order {
     /**
      * Generates a printed receipt containing the contents, discounts, and total final price.
      *
-     * @return An instance of a receipt for this order.
+     * @return an instance of a receipt for this order.
      */
     public String generateReceipt() {
         return TextReceiptGenerator.getInstance().generateReceipt(this);
@@ -61,18 +62,19 @@ public class Order {
     public String toString() {
         StringBuilder str = new StringBuilder("Order of:\n");
         for (int i = 0; i < bags.size(); i++) {
-            str.append("\tItem ").append(i).append(": ").append(bags.get(i).toString()).append("\n");
+            str.append("\tItem ").append(i).append(": ").append(bags.get(i).toString())
+            .append("\n");
         }
         return str.toString();
     }
 
     @Override
     public boolean equals(Object object) {
-        // check to see that the object is an Order
-        if (!(object instanceof Order))
+        if (!(object instanceof Order)) {
             return false;
+        }
 
-        Order newOrder = (Order)object;
+        Order newOrder = (Order) object;
         Collections.sort(bags);
         Collections.sort(newOrder.bags);
 
@@ -81,11 +83,7 @@ public class Order {
 
     @Override
     public int hashCode() {
-        int result = 0;
-        for (Bag bag : bags) {
-            result += bag.hashCode();
-        }
-        return result;
+        return bags.hashCode();
     }
 
     public List<Bag> getBags() {

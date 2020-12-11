@@ -19,12 +19,11 @@ public abstract class ReceiptGenerator {
     /**
      * Generates a printed receipt containing the contents, discounts, and total final price.
      *
-     * @return order Generated receipt of order.
+     * @return order generated receipt of order
      */
     public String generateReceipt(Order order) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(receiptHeader);
         BigDecimal total = new BigDecimal("00.00");
-        sb.append(receiptHeader);
         for (Bag bag : order.getBags()) {
             total = total.add(bag.getTotalPrice());
             sb.append(generateBody(bag));

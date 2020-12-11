@@ -15,15 +15,14 @@ class BagTest {
     // testing under bulk minimum/bulk minimum/buy1get1free for each category
     @ParameterizedTest
     @ArgumentsSource(BagArgumentsProvider_getTotalPrice.class)
-    void getTotalPrice_assertEquals_VaryingAmountsOfBagel(Bag bag, double expectedPrice) {
+    void getTotalPrice_CorrectPrice_VaryingAmountsOfBagel(Bag bag, double expectedPrice) {
         assertEquals(expectedPrice, bag.getTotalPrice().doubleValue());
     }
 
-    // testing the correct price is return for one of each bagel in each old
-    // fashioned and gourmet categories
+    // testing that the correct price is return for each bagel in all three categories
     @ParameterizedTest
     @ArgumentsSource(BagArgumentsProvider_getPerBagelPriceOFG.class)
-    void getPerBagelPrice_assertEquals_CorrectPricePerBagelOFG(Bag bag, double expectedPrice) {
+    void getPerBagelPrice_CorrectPrice_CorrectPricePerBagelOFG(Bag bag, double expectedPrice) {
         assertEquals(expectedPrice, bag.getPerBagelPrice().doubleValue());
     }
 
@@ -37,12 +36,12 @@ class BagTest {
         // Old Fashioned
         assertEquals(makeBag(Type.PLAIN,3), makeBag(Type.PLAIN,3));
         assertEquals(makeBag(Type.PLAIN,6), makeBag(Type.PLAIN,6));
-        assertEquals(makeBag(Type.PLAIN,13),makeBag(Type.PLAIN,13));
+        assertEquals(makeBag(Type.PLAIN,13), makeBag(Type.PLAIN,13));
 
         // Gourmet
         assertEquals(makeBag(Type.ASIAGO,3), makeBag(Type.ASIAGO,3));
         assertEquals(makeBag(Type.ASIAGO,6), makeBag(Type.ASIAGO,6));
-        assertEquals(makeBag(Type.ASIAGO,13),makeBag(Type.ASIAGO,13));
+        assertEquals(makeBag(Type.ASIAGO,13), makeBag(Type.ASIAGO,13));
 
         // Day Old
         Bagel old = new Bagel(Type.BLUEBERRY);

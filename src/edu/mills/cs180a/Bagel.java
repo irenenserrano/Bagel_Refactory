@@ -18,16 +18,12 @@ public class Bagel {
 
 
     enum Type {
-        PLAIN("Plain", Category.OLD_FASHIONED), POPPY_SEED("Poppy Seed",
-                Category.OLD_FASHIONED), SESAME_SEED("Sesame Seed", Category.OLD_FASHIONED), ONION(
-                        "Onion", Category.OLD_FASHIONED), EVERYTHING("Everything",
-                                Category.OLD_FASHIONED), ASIAGO("Asiago",
-                                        Category.GOURMET), BLUEBERRY("Blueberry",
-                                                Category.GOURMET), CINNAMON_RAISIN(
-                                                        "Cinnamon Raisin",
-                                                        Category.GOURMET), SUN_DRIED_TOMATO(
-                                                                "Sun Dried Tomato",
-                                                                Category.GOURMET);
+        PLAIN("Plain", Category.OLD_FASHIONED), POPPY_SEED("Poppy Seed", Category.OLD_FASHIONED),
+        SESAME_SEED("Sesame Seed", Category.OLD_FASHIONED), ONION("Onion", Category.OLD_FASHIONED),
+        EVERYTHING("Everything", Category.OLD_FASHIONED), ASIAGO("Asiago", Category.GOURMET),
+        BLUEBERRY("Blueberry", Category.GOURMET),
+        CINNAMON_RAISIN("Cinnamon Raisin", Category.GOURMET),
+        SUN_DRIED_TOMATO("Sun Dried Tomato", Category.GOURMET);
 
         private final String name;
         private final Category category;
@@ -100,8 +96,9 @@ public class Bagel {
 
     @Override
     public boolean equals(Object object) {
-        if(!(object instanceof Order))
+        if (!(object instanceof Order)) {
             return false;
+        }
 
         String type = ((Bagel) object).getType().toString();
         Category category = ((Bagel) object).getCategory();

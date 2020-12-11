@@ -96,8 +96,9 @@ public class Bag implements Comparable<Bag> {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Bag))
+        if (!(object instanceof Bag)){
             return false;
+        }
 
         Bag bag = (Bag) object;
         Type bagelType = bag.getBagel().getType();
@@ -118,10 +119,7 @@ public class Bag implements Comparable<Bag> {
 
     @Override
     public int compareTo(Bag bag) {
-        String str = bag.toString();
-
-        return str.compareTo(this.toString());
-
+        return bag.toString().compareTo(this.toString());
     }
 }
 

@@ -19,7 +19,7 @@ class TextReceiptGeneratorTest {
     private static final Bag OLD_3 = new Bag(ASIAGO, 3);
 
     @Test
-    void generateBody_CorretOutput_ValidBody() {
+    void generateBody_CorrectOutput_ValidBody() {
         ASIAGO.markDown();
         String output1 = "Plain \n \tQuantity: 7 \n \tPrice each: $0.50 \n Total: $3.33 \n";
         String output2 = "Cinnamon Raisin \n \tQuantity: 13 \n \tPrice each: $0.70 \n Total: $8.40 \n";

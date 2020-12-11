@@ -67,27 +67,6 @@ class BagelTest {
     }
 
     @Test
-    void equals_True_ThereBagelsSameCategory() {
-        // Old Fashioned
-        Bagel everything = new Bagel(Type.EVERYTHING);
-        assertEquals(PLAIN.getCategory(), ONION.getCategory());
-        assertEquals(ONION.getCategory(), everything.getCategory());
-        assertEquals(PLAIN.getCategory(), everything.getCategory());
-
-        // Gourment
-        Bagel tomato = new Bagel(Type.SUN_DRIED_TOMATO);
-        assertEquals(ASIAGO.getCategory(), BLUEBERRY.getCategory());
-        assertEquals(BLUEBERRY.getCategory(), tomato.getCategory());
-        assertEquals(ASIAGO.getCategory(), tomato.getCategory());
-
-        // Day old
-        tomato.markDown();
-        assertEquals(OLD_1.getCategory(), OLD_2.getCategory());
-        assertEquals(OLD_2.getCategory(), tomato.getCategory());
-        assertEquals(OLD_1.getCategory(), tomato.getCategory());
-    }
-
-    @Test
     void equals_False_Null() {
         // Old Fashioned
         assertNotEquals(PLAIN.getType(),null);
